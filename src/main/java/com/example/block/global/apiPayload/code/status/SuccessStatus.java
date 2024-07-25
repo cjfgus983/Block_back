@@ -1,7 +1,7 @@
-package com.example.block.apiPayload.code.status;
+package com.example.block.global.apiPayload.code.status;
 
-import com.example.block.apiPayload.code.BaseCode;
-import com.example.block.apiPayload.code.ReasonDTO;
+import com.example.block.global.apiPayload.code.BaseCode;
+import com.example.block.global.apiPayload.code.ReasonDTO;
 import lombok.Getter;
 
 @Getter

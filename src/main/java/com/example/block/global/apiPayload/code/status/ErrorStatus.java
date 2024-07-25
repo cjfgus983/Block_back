@@ -1,7 +1,7 @@
-package com.example.block.apiPayload.code.status;
+package com.example.block.global.apiPayload.code.status;
 
-import com.example.block.apiPayload.code.BaseErrorCode;
-import com.example.block.apiPayload.code.ErrorReasonDTO;
+import com.example.block.global.apiPayload.code.BaseErrorCode;
+import com.example.block.global.apiPayload.code.ErrorReasonDTO;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.springframework.http.HttpStatus;

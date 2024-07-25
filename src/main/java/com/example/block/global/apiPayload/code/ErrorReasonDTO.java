@@ -1,4 +1,4 @@
-package com.example.block.apiPayload.code;
+package com.example.block.global.apiPayload.code;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
