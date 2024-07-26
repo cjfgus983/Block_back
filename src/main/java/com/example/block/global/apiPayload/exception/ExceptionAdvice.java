@@ -1,8 +1,8 @@
-package com.example.block.apiPayload.exception;
+package com.example.block.global.apiPayload.exception;
 
 import com.example.block.ApiResponse;
-import com.example.block.apiPayload.code.ErrorReasonDTO;
-import com.example.block.apiPayload.code.status.ErrorStatus;
+import com.example.block.global.apiPayload.code.ErrorReasonDTO;
+import com.example.block.global.apiPayload.code.status.ErrorStatus;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.ConstraintViolationException;
 import lombok.extern.slf4j.Slf4j;
