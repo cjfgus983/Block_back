@@ -13,6 +13,7 @@ public class TeamMatchResponseDTO {
     @NoArgsConstructor
     @AllArgsConstructor
     public static class ChallengerListResultDTO{
+        Long id;    // 지원자 ID
         String name;
         String university;
         ApplyPart applyPart;
@@ -29,7 +30,7 @@ public class TeamMatchResponseDTO {
         String portfolio;
         ApplyPart applyPart;
         String content; // 자기소개
-        Float score;    // 별점
+//        Float score;    // 별점
         Boolean liked;  // 하트
     }
 }

@@ -1,12 +1,16 @@
 package com.example.block.domain;
 
+import com.example.block.domain.common.BaseEntity;
 import com.example.block.domain.enums.ContestType;
+import com.example.block.domain.mapping.Applicant;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.DynamicInsert;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity(name = "Contest")
 @Getter
@@ -14,7 +18,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 @DynamicInsert
-public class Contest {
+public class Contest extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,14 +39,11 @@ public class Contest {
     @Column(nullable = false, length = 10)
     private String endDate;
 
-    @Column(nullable = false)
-    private LocalDateTime createDate;
-
-    @Column(nullable = false)
-    private LocalDateTime modifyDate;
-
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     @ColumnDefault("'ACTIVE'")
     private ContestType contestType;
+
+    @OneToMany(mappedBy = "contest")
+    private List<Applicant> applicantList = new ArrayList<Applicant>();
 }

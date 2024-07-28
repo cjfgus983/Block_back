@@ -2,6 +2,7 @@ package com.example.block.controller;
 
 import com.example.block.ApiResponse;
 import com.example.block.converter.TeamMatchConverter;
+import com.example.block.domain.User;
 import com.example.block.domain.mapping.Applicant;
 import com.example.block.dto.TeamMatchRequestDTO;
 import com.example.block.dto.TeamMatchResponseDTO;
@@ -29,18 +30,24 @@ public class TeamMatchRestController {
         return ApiResponse.onSuccess(TeamMatchConverter.toChallengerListResultDTO(challengerList));
     }
 
+    //  토큰 구현되면 userId 토큰 정보로 대체
+    //  challengerId는 유저 ID가 아니라 지원자 ID
     @GetMapping("/challenger/{challengerId}")
-    public void challenger(@PathVariable Integer contestId, @PathVariable Integer challengerId){
-
+    public ApiResponse<TeamMatchResponseDTO.ChallengerResultDTO> challenger(@PathVariable Long contestId,
+                                                                            @PathVariable Long challengerId,
+                                                                            @RequestParam(name = "userId") Long userId){
+        Applicant challenger = teamMatchService.getChallenger(challengerId);
+        Boolean hasUserLiked = teamMatchService.hasUserLiked(userId, challenger.getUser().getId(), contestId);
+        return ApiResponse.onSuccess(TeamMatchConverter.toChallengerResultDTO(challenger, hasUserLiked));
     }
 
     @PostMapping("/challenger/{challengerId}")
-    public void like(@PathVariable Integer contestId, @PathVariable Integer challengerId){
+    public void like(@PathVariable Long contestId, @PathVariable Long challengerId){
 
     }
 
     @GetMapping("/member")
-    public void member(@PathVariable Integer contestId){
+    public void member(@PathVariable Long contestId){
 
     }
 }
