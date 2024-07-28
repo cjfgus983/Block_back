@@ -13,7 +13,7 @@ public class TeamMatchResponseDTO {
     @NoArgsConstructor
     @AllArgsConstructor
     public static class ChallengerListResultDTO{
-        Long id;    // 지원자 ID
+        Integer id;    // 지원자 ID
         String name;
         String university;
         ApplyPart applyPart;

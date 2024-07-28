@@ -22,7 +22,7 @@ public class Contest extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
 
     @Column(nullable = false, length = 30)
     private String title;
@@ -44,6 +44,6 @@ public class Contest extends BaseEntity {
     @ColumnDefault("'ACTIVE'")
     private ContestType contestType;
 
-    @OneToMany(mappedBy = "contest")
-    private List<Applicant> applicantList = new ArrayList<Applicant>();
+//    @OneToMany(mappedBy = "contest")
+//    private List<Applicant> applicantList = new ArrayList<Applicant>();
 }

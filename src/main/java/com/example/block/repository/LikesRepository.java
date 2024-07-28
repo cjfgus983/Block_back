@@ -5,6 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
 
-public interface LikesRepository extends JpaRepository<Likes, Long> {
-    Optional<Likes> findByUserLikerIdAndUserLikedIdAndContestId(Long userLikerId, Long userLikedId, Long contestId);
+public interface LikesRepository extends JpaRepository<Likes, Integer> {
+    Optional<Likes> findByUserLikerIdAndUserLikedIdAndContestId(Long userLikerId, Long userLikedId, Integer contestId);
 }

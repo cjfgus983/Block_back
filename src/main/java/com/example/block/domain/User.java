@@ -79,6 +79,6 @@ public class User extends BaseEntity {
         return id;
     }
 
-    @OneToMany(mappedBy = "user")
-    private List<Applicant> applicantList = new ArrayList<Applicant>();
+//    @OneToMany(mappedBy = "user")
+//    private List<Applicant> applicantList = new ArrayList<Applicant>();
 }
