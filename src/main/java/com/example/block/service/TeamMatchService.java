@@ -4,6 +4,8 @@ import com.example.block.domain.Contest;
 import com.example.block.domain.User;
 import com.example.block.domain.mapping.Applicant;
 import com.example.block.dto.TeamMatchRequestDTO;
+import com.example.block.global.apiPayload.code.status.ErrorStatus;
+import com.example.block.global.apiPayload.exception.handler.ApplicantHandler;
 import com.example.block.repository.ApplicantRepository;
 import com.example.block.repository.ContestRepository;
 import com.example.block.repository.LikesRepository;
@@ -24,17 +26,24 @@ public class TeamMatchService {
 
     public void applyToContest(TeamMatchRequestDTO.ApplyDTO request, Integer contestId, Long userId){
 
-        User user = userRepository.findById(userId).get();
-        Contest contest = contestRepository.findById(contestId).get();
+        if(applicantRepository.findByContestIdAndUserId(contestId, userId).isPresent()){
 
-        Applicant newApplicant = Applicant.builder()
-                .user(user)
-                .contest(contest)
-                .applyPart(request.getApplyPart())
-                .content(request.getContent())
-                .build();
+            throw new ApplicantHandler(ErrorStatus.CHALLENGER_ALREADY_EXISTS);
+        }
+        else {
 
-        applicantRepository.save(newApplicant);
+            User user = userRepository.findById(userId).get();
+            Contest contest = contestRepository.findById(contestId).get();
+
+            Applicant newApplicant = Applicant.builder()
+                    .user(user)
+                    .contest(contest)
+                    .applyPart(request.getApplyPart())
+                    .content(request.getContent())
+                    .build();
+
+            applicantRepository.save(newApplicant);
+        }
     }
 
     public List<Applicant> getChallengerList(Integer contestId){
