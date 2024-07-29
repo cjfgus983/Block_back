@@ -50,8 +50,12 @@ public class TeamMatchRestController {
 
     }
 
+    //  토큰 구현되면 userId를 토큰 정보로 대체
+    //  매칭된 팀원 출력
     @GetMapping("/member")
-    public void member(@PathVariable Integer contestId){
+    public ApiResponse<List<TeamMatchResponseDTO.MemberResultDTO>> member(@PathVariable Integer contestId, @RequestParam(name = "userId") Long userId){
 
+        List<User> memberList = teamMatchService.getMemberList(contestId, userId);
+        return ApiResponse.onSuccess(TeamMatchConverter.toMemberResultDTO(memberList));
     }
 }

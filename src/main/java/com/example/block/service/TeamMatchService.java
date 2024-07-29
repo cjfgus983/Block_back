@@ -6,14 +6,12 @@ import com.example.block.domain.mapping.Applicant;
 import com.example.block.dto.TeamMatchRequestDTO;
 import com.example.block.global.apiPayload.code.status.ErrorStatus;
 import com.example.block.global.apiPayload.exception.handler.ApplicantHandler;
-import com.example.block.repository.ApplicantRepository;
-import com.example.block.repository.ContestRepository;
-import com.example.block.repository.LikesRepository;
-import com.example.block.repository.UserRepository;
+import com.example.block.repository.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -22,6 +20,7 @@ public class TeamMatchService {
     private final UserRepository userRepository;
     private final ContestRepository contestRepository;
     private final ApplicantRepository applicantRepository;
+    private final MatchesRepository matchRepository;
     private final LikesRepository likesRepository;
 
     public void applyToContest(TeamMatchRequestDTO.ApplyDTO request, Integer contestId, Long userId){
@@ -52,6 +51,13 @@ public class TeamMatchService {
 
     public Applicant getChallenger(Integer contestId, Integer challengerId){
         return applicantRepository.findByContestIdAndId(contestId, challengerId);
+    }
+
+    public List<User> getMemberList(Integer contestId, Long userId){
+        List<Long> idList = matchRepository.findMatchedUsersByUserIdAndContestId(userId, contestId);
+
+        return idList.stream()
+                .map(id -> userRepository.findById(id).get()).collect(Collectors.toList());
     }
 
     public Boolean hasUserLiked(Long userLikerId, Long userLikedId, Integer contestId){

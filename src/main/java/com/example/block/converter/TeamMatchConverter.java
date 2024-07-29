@@ -32,4 +32,12 @@ public class TeamMatchConverter {
                 .liked(hasUserLiked)
                 .build();
     }
+
+    public static List<TeamMatchResponseDTO.MemberResultDTO> toMemberResultDTO(List<User> memberList){
+        return memberList.stream()
+                .map(member -> TeamMatchResponseDTO.MemberResultDTO.builder()
+                        .name(member.getName())
+                        .university(member.getUniversity())
+                        .build()).collect(Collectors.toList());
+    }
 }

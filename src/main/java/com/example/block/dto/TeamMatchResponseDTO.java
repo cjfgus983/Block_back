@@ -33,4 +33,13 @@ public class TeamMatchResponseDTO {
 //        Float score;    // 별점
         Boolean liked;  // 하트
     }
+
+    @Builder
+    @Getter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class MemberResultDTO{
+        String name;
+        String university;
+    }
 }
