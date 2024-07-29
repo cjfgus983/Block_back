@@ -20,6 +20,7 @@ public class MyPageController {
 
     private final MyPageService myPageService;
 
+    //  내가 좋아요 누른 사람 목록
     //  토큰 구현되면 userId를 토큰 정보로 대체
     @GetMapping("/like")
     public ApiResponse<List<MyPageResponseDTO.likeListResultDTO>> likeList(@RequestParam(name = "userId") Long userId){
@@ -28,7 +29,12 @@ public class MyPageController {
         return ApiResponse.onSuccess(MyPageConverter.toLikeListResultDTO(applicantList));
     }
 
+    //  나에게 좋아요를 누른 사람 목록
     //  토큰 구현되면 userId를 토큰 정보로 대체
     @GetMapping("/likeBy")
-    public void likeByList(@RequestParam(name = "userId") Long userId){}
+    public ApiResponse<List<MyPageResponseDTO.likeListResultDTO>> likeByList(@RequestParam(name = "userId") Long userId){
+
+        List<Applicant> applicantList = myPageService.getLikeByChallengerList(userId);
+        return ApiResponse.onSuccess(MyPageConverter.toLikeListResultDTO(applicantList));
+    }
 }

@@ -21,11 +21,21 @@ public class MyPageService {
         return applicantRepository.findByContestIdAndUserId(contestId, userId).get();
     }
 
+    //  내가 좋아요 누른 사람 목록
     public List<Applicant> getLikeChallengerList(Long userId){
         List<Likes> likeList = likesRepository.findByUserLikerId(userId);
 
         return likeList.stream()
                 .map(like -> getChallenger(like.getContest().getId(), like.getUserLiked().getId()))
+                .collect(Collectors.toList());
+    }
+
+    //  나에게 좋아요를 누른 사람 목록
+    public List<Applicant> getLikeByChallengerList(Long userId){
+        List<Likes> likedList = likesRepository.findByUserLikedId(userId);
+
+        return likedList.stream()
+                .map(like -> getChallenger(like.getContest().getId(), like.getUserLiker().getId()))
                 .collect(Collectors.toList());
     }
 }
