@@ -13,5 +13,5 @@ public interface MatchesRepository extends JpaRepository<Matches, Integer> {
     @Query(value = "SELECT CASE WHEN m.user_id1 = :userId THEN m.user_id2 ELSE m.user_id1 END as matched_user_id " +
             "FROM matches m WHERE m.contest_id = :contestId AND (m.user_id1 = :userId OR m.user_id2 = :userId)",
             nativeQuery = true)
-    List<Long> findMatchedUsersByUserIdAndContestId(@Param("userId") Long userId, @Param("contestId") Integer contestId);
+    List<Integer> findMatchedUsersByUserIdAndContestId(@Param("userId") Integer userId, @Param("contestId") Integer contestId);
 }

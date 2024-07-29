@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface LikesRepository extends JpaRepository<Likes, Integer> {
-    Optional<Likes> findByUserLikerIdAndUserLikedIdAndContestId(Long userLikerId, Long userLikedId, Integer contestId);
-    List<Likes> findByUserLikerId(Long userLikerId);
-    List<Likes> findByUserLikedId(Long userLikedId);
+    Optional<Likes> findByUserLikerIdAndUserLikedIdAndContestId(Integer userLikerId, Integer userLikedId, Integer contestId);
+    List<Likes> findByUserLikerId(Integer userLikerId);
+    List<Likes> findByUserLikedId(Integer userLikedId);
 }

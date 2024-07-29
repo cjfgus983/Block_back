@@ -11,6 +11,7 @@ import org.hibernate.annotations.DynamicInsert;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.sql.Timestamp;
 
 @Entity(name = "Contest")
 @Getter
@@ -24,14 +25,17 @@ public class Contest extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(nullable = false, length = 30)
+    @Column(nullable = false, length = 50)
     private String title;
 
     @Column(nullable = true)
-    private String url;
+    private String applyUrl;
+
+    @Column(nullable = false)
+    private String imageUrl;
 
     @Column(nullable = true)
-    private String hashtag;
+    private String hashTag;
 
     @Column(nullable = false, length = 10)
     private String startDate;
@@ -44,6 +48,6 @@ public class Contest extends BaseEntity {
     @ColumnDefault("'ACTIVE'")
     private ContestType contestType;
 
-//    @OneToMany(mappedBy = "contest")
-//    private List<Applicant> applicantList = new ArrayList<Applicant>();
+    @Column(nullable = false)
+    private String host;
 }

@@ -23,7 +23,7 @@ public class TeamMatchService {
     private final MatchesRepository matchRepository;
     private final LikesRepository likesRepository;
 
-    public void applyToContest(TeamMatchRequestDTO.ApplyDTO request, Integer contestId, Long userId){
+    public void applyToContest(TeamMatchRequestDTO.ApplyDTO request, Integer contestId, Integer userId){
 
         if(applicantRepository.findByContestIdAndUserId(contestId, userId).isPresent()){
 
@@ -53,14 +53,14 @@ public class TeamMatchService {
         return applicantRepository.findByContestIdAndId(contestId, challengerId);
     }
 
-    public List<User> getMemberList(Integer contestId, Long userId){
-        List<Long> idList = matchRepository.findMatchedUsersByUserIdAndContestId(userId, contestId);
+    public List<User> getMemberList(Integer contestId, Integer userId){
+        List<Integer> idList = matchRepository.findMatchedUsersByUserIdAndContestId(userId, contestId);
 
         return idList.stream()
                 .map(id -> userRepository.findById(id).get()).collect(Collectors.toList());
     }
 
-    public Boolean hasUserLiked(Long userLikerId, Long userLikedId, Integer contestId){
+    public Boolean hasUserLiked(Integer userLikerId, Integer userLikedId, Integer contestId){
         return likesRepository.findByUserLikerIdAndUserLikedIdAndContestId(userLikerId, userLikedId, contestId).isPresent();
     }
 }

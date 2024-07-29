@@ -17,12 +17,12 @@ public class MyPageService {
     private final LikesRepository likesRepository;
     private final ApplicantRepository applicantRepository;
 
-    public Applicant getChallenger(Integer contestId, Long userId){
+    public Applicant getChallenger(Integer contestId, Integer userId){
         return applicantRepository.findByContestIdAndUserId(contestId, userId).get();
     }
 
     //  내가 좋아요 누른 사람 목록
-    public List<Applicant> getLikeChallengerList(Long userId){
+    public List<Applicant> getLikeChallengerList(Integer userId){
         List<Likes> likeList = likesRepository.findByUserLikerId(userId);
 
         return likeList.stream()
@@ -31,7 +31,7 @@ public class MyPageService {
     }
 
     //  나에게 좋아요를 누른 사람 목록
-    public List<Applicant> getLikeByChallengerList(Long userId){
+    public List<Applicant> getLikeByChallengerList(Integer userId){
         List<Likes> likedList = likesRepository.findByUserLikedId(userId);
 
         return likedList.stream()

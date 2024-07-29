@@ -23,7 +23,7 @@ public class TeamMatchRestController {
     @PostMapping("/apply")
     public void apply(@PathVariable Integer contestId,
                       @RequestBody TeamMatchRequestDTO.ApplyDTO request,
-                      @RequestParam(name = "userId") Long userId){
+                      @RequestParam(name = "userId") Integer userId){
         teamMatchService.applyToContest(request, contestId, userId);
     }
 
@@ -39,7 +39,7 @@ public class TeamMatchRestController {
     @GetMapping("/challenger/{challengerId}")
     public ApiResponse<TeamMatchResponseDTO.ChallengerResultDTO> challenger(@PathVariable Integer contestId,
                                                                             @PathVariable Integer challengerId,
-                                                                            @RequestParam(name = "userId") Long userId){
+                                                                            @RequestParam(name = "userId") Integer userId){
         Applicant challenger = teamMatchService.getChallenger(contestId, challengerId);
         Boolean hasUserLiked = teamMatchService.hasUserLiked(userId, challenger.getUser().getId(), contestId);
         return ApiResponse.onSuccess(TeamMatchConverter.toChallengerResultDTO(challenger, hasUserLiked));
@@ -53,7 +53,7 @@ public class TeamMatchRestController {
     //  토큰 구현되면 userId를 토큰 정보로 대체
     //  매칭된 팀원 출력
     @GetMapping("/member")
-    public ApiResponse<List<TeamMatchResponseDTO.MemberResultDTO>> member(@PathVariable Integer contestId, @RequestParam(name = "userId") Long userId){
+    public ApiResponse<List<TeamMatchResponseDTO.MemberResultDTO>> member(@PathVariable Integer contestId, @RequestParam(name = "userId") Integer userId){
 
         List<User> memberList = teamMatchService.getMemberList(contestId, userId);
         return ApiResponse.onSuccess(TeamMatchConverter.toMemberResultDTO(memberList));
