@@ -8,8 +8,8 @@ import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
-public interface PointDetailRepository extends JpaRepository<PointDetail, Long> {
+public interface PointDetailRepository extends JpaRepository<PointDetail, Integer> {
     @Query("SELECT p FROM PointDetail p WHERE p.user.id = :userId ORDER BY p.created_at DESC")
-    List<PointDetail> findTopByUserIdOrderByCreatedAtDesc(@Param("userId") Long userId, Pageable pageable);
+    List<PointDetail> findTopByUserIdOrderByCreatedAtDesc(@Param("userId") Integer userId, Pageable pageable);
 
 }

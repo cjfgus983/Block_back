@@ -8,10 +8,10 @@ public class KakaoPayRequestDTO {
     @Getter
     public static class KakaoPayReadyRequestDTO {
         @NotNull
-        private Long userId;//일단 body로 가져오기
+        private Integer userId;//일단 body로 가져오기
 
         @NotNull
-        private Long reviewId;
+        private Integer reviewId;
 
         @NotNull(message = "상품명을 입력해주세요")
         private String itemName ;
@@ -27,9 +27,5 @@ public class KakaoPayRequestDTO {
 
     }
 
-    @Getter
-    public static class KakaoPayApproveRequestDTO{
-
-    }
 
 }

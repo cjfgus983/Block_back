@@ -35,7 +35,7 @@ public class PointServiceImpl implements PointService {
 
     @Override
     @Transactional
-    public PointDetail chargePoint(Long userId, Long point) {
+    public PointDetail chargePoint(Integer userId, Long point) {
         //포인트 충전
         User user = userRepository.findById(userId).orElseThrow(
                 () -> new GeneralException(ErrorStatus._USER_NOT_FOUND));
@@ -49,7 +49,7 @@ public class PointServiceImpl implements PointService {
 
     @Override
     @Transactional
-    public PointDetail usePoint(Long userId, Long point) {
+    public PointDetail usePoint(Integer userId, Long point) {
         //포인트 사용
         User user = userRepository.findById(userId).orElseThrow(
                 () -> new GeneralException(ErrorStatus._USER_NOT_FOUND));
@@ -62,7 +62,7 @@ public class PointServiceImpl implements PointService {
     }
 
     @Override
-    public Long getMyPoint(Long userId) {
+    public Long getMyPoint(Integer userId) {
         //내 포인트 조회
         User user = userRepository.findById(userId).orElseThrow(
                 () -> new GeneralException(ErrorStatus._USER_NOT_FOUND));
@@ -71,7 +71,7 @@ public class PointServiceImpl implements PointService {
     }
 
     @Override
-    public List<PointDetail> getMyPointDetail(Long userId) {
+    public List<PointDetail> getMyPointDetail(Integer userId) {
         //내 포인트 상세 조회
         User user = userRepository.findById(userId).orElseThrow(
                 () -> new GeneralException(ErrorStatus._USER_NOT_FOUND));
@@ -83,7 +83,7 @@ public class PointServiceImpl implements PointService {
 
     @Override
     @Transactional
-    public void payForReview(Long userId, Long reviewId, Long point){
+    public void payForReview(Integer userId, Integer reviewId, Long point){
         //리뷰 정상 결제 시 transactionReview 추가 및 pointDetail 추가
         User user = userRepository.findById(userId).orElseThrow(
                 () -> new GeneralException(ErrorStatus._USER_NOT_FOUND));
@@ -105,7 +105,7 @@ public class PointServiceImpl implements PointService {
 
     @Override
     @Transactional
-    public boolean isAlreadyPaid(Long userId, Long reviewId) {
+    public boolean isAlreadyPaid(Integer userId, Integer reviewId) {
         //이미 결제한 리뷰인지 확인
         User user = userRepository.findById(userId).orElseThrow(
                 () -> new GeneralException(ErrorStatus._USER_NOT_FOUND));

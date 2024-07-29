@@ -32,8 +32,8 @@ public class ReviewController {
             @Parameter(name="reviewId",description = "리뷰의 id, path variable 입니다")
     })
     @Operation(summary = "리뷰 상세 조회")
-    public ApiResponse<ReviewResponseDTO.GetReviewDetailDTO> getReviewDetail(@PathVariable(name="userId") Long userId,
-                                                                             @PathVariable(name="reviewId") Long reviewId)
+    public ApiResponse<ReviewResponseDTO.GetReviewDetailDTO> getReviewDetail(@PathVariable(name="userId") Integer userId,
+                                                                             @PathVariable(name="reviewId") Integer reviewId)
     {
         //리뷰 상세 조회
         Review review = reviewService.getReviewDetail(userId,reviewId);

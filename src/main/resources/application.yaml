@@ -8,6 +8,7 @@ spring:
     username: root
     password: 140501
 
+
   sql:
     init:
       mode: never
@@ -23,3 +24,4 @@ spring:
 
   profiles:
     include: API-KEY
+

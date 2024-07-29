@@ -3,11 +3,11 @@ package com.example.block.domain;
 import com.example.block.domain.common.BaseEntity;
 import com.example.block.domain.enums.LoginType;
 import com.example.block.domain.mapping.TransactionReview;
+
+
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.annotations.DynamicInsert;
-import org.hibernate.annotations.DynamicUpdate;
-import org.springframework.data.annotation.Id;
+
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -23,7 +23,7 @@ public class User extends BaseEntity {
 
     @jakarta.persistence.Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
 
     @Column(nullable = true, length = 50)
     private String userId;
@@ -35,7 +35,7 @@ public class User extends BaseEntity {
     private String email;
 
     @Column(nullable = true, length = 1023)
-    private String portPolio;
+    private String portfolio;
 
     @Column(nullable = true, length = 1023)
     private String imageUrl;
@@ -72,19 +72,22 @@ public class User extends BaseEntity {
     @Column(columnDefinition = "BIGINT DEFAULT 0")
     private Long point;
 
+
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<TransactionReview> transactionReviewList=new ArrayList<>();
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<PointDetail> pointDetailList=new ArrayList<>();
 
-    public void setId(Long id) {
+
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
+
 
     public void usePoint(Long point) {
         this.point -= point;
@@ -93,4 +96,8 @@ public class User extends BaseEntity {
     public void chargePoint(Long point) {
         this.point += point;
     }
+
+//    @OneToMany(mappedBy = "user")
+//    private List<Applicant> applicantList = new ArrayList<Applicant>();
+
 }

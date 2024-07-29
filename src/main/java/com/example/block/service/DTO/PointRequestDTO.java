@@ -12,7 +12,7 @@ public class PointRequestDTO {
 
     @Getter
     public static class PointUse{
-        private Long userId;
+        private Integer userId;
         private Long point;
     }
 }

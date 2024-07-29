@@ -27,7 +27,7 @@ public class ReviewServiceImpl implements ReviewService{
 
 
     @Override
-    public Review getReviewDetail(Long userId,Long reviewId){
+    public Review getReviewDetail(Integer userId,Integer reviewId){
         //리뷰 결제 여부 확인
         if (!pointService.isAlreadyPaid(userId,reviewId)) {
             throw new GeneralException(ErrorStatus._NEED_PAY);

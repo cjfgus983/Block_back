@@ -20,12 +20,13 @@ public enum ErrorStatus implements BaseErrorCode {
     _KAKAO_PAY_READY_FAIL(HttpStatus.BAD_REQUEST,"PAY400","카카오페이 준비에 실패하였습니다."),
     _ALREADY_PAID(HttpStatus.BAD_REQUEST,"PAY400","이미 결제한 리뷰입니다."),
     _NEED_PAY(HttpStatus.BAD_REQUEST,"PAY400","결제가 필요합니다."),
-
     //리뷰 관련
     _REVIEW_NOT_FOUND(HttpStatus.NOT_FOUND,"REVIEW404","리뷰가 존재하지 않습니다."),
-
     //유저 관련
     _USER_NOT_FOUND(HttpStatus.NOT_FOUND,"USER404","유저가 존재하지 않습니다."),
+
+    CHALLENGER_ALREADY_EXISTS(HttpStatus.BAD_REQUEST, "APPLY400", "이미 지원한 공모전입니다.")
+
     ;
 
     private final HttpStatus httpStatus;

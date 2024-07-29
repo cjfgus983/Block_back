@@ -2,36 +2,34 @@ package com.example.block.domain.mapping;
 
 import com.example.block.domain.Contest;
 import com.example.block.domain.User;
-import com.example.block.domain.enums.ApplyPart;
+import com.example.block.domain.common.BaseEntity;
 import jakarta.persistence.*;
 import lombok.*;
 
-@Entity(name = "Applicant")
+@Entity(name = "Matches")
 @Table(indexes = {
-        @Index(name = "contest_id_idx", columnList = "contest_id, id"),
-        @Index(name = "contest_user_idx", columnList = "contest_id, user_id")})
+        @Index(name = "user1_contest_idx", columnList = "user_id1, contest_id"),
+        @Index(name = "user2_contest_idx", columnList = "user_id2, contest_id")
+})
 @Getter
 @Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
-public class Applicant {
+public class Matches extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
+    @JoinColumn(name = "user_id1")
+    private User user1;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id2")
+    private User user2;
 
     @ManyToOne
     @JoinColumn(name = "contest_id")
     private Contest contest;
-
-    @Column(nullable = false)
-    @Enumerated(EnumType.STRING)
-    private ApplyPart applyPart;
-
-    @Column(nullable = true)
-    private String content;
 }
