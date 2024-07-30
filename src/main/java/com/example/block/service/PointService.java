@@ -95,6 +95,10 @@ public class PointService {
         TransactionReview transactionReview = TransactionReviewConverter.toTransactionReview(user,review);
         transactionReview.setUserReview(user,review);
 
+        if(point==0){
+            return;
+        }
+
         //pointDetail 추가
         PointDetail pointDetail = PointConverter.toPointDetail(-point,PointType.KAKAOPAYSPEND,"공모전 후기 결제");
         pointDetail.setUser(user);
