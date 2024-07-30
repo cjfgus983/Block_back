@@ -1,4 +1,4 @@
-package com.example.block.service.DTO;
+package com.example.block.dto;
 
 import com.example.block.domain.enums.PointType;
 import lombok.*;

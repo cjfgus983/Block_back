@@ -1,9 +1,8 @@
 package com.example.block.converter;
 
 import com.example.block.domain.PointDetail;
-import com.example.block.domain.User;
 import com.example.block.domain.enums.PointType;
-import com.example.block.service.DTO.PointResponseDTO;
+import com.example.block.dto.PointResponseDTO;
 
 import java.util.List;
 import java.util.stream.Collectors;

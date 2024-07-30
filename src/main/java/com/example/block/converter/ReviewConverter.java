@@ -2,7 +2,7 @@ package com.example.block.converter;
 
 
 import com.example.block.domain.mapping.Review;
-import com.example.block.service.DTO.ReviewResponseDTO;
+import com.example.block.dto.ReviewResponseDTO;
 
 public class ReviewConverter {
 

@@ -1,4 +1,4 @@
-package com.example.block.service.DTO;
+package com.example.block.dto;
 
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;

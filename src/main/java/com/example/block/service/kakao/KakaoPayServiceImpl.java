@@ -4,8 +4,8 @@ package com.example.block.service.kakao;
 import com.example.block.global.apiPayload.code.status.ErrorStatus;
 import com.example.block.global.apiPayload.exception.GeneralException;
 import com.example.block.repository.UserRepository;
-import com.example.block.service.DTO.KakaoPayRequestDTO;
-import com.example.block.service.DTO.KakaoPayResponseDTO;
+import com.example.block.dto.KakaoPayRequestDTO;
+import com.example.block.dto.KakaoPayResponseDTO;
 import com.example.block.service.PointService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
@@ -15,10 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
-import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
-
-import java.util.Map;
 
 
 @Service

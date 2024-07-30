@@ -2,12 +2,9 @@ package com.example.block.controller;
 
 
 import com.example.block.ApiResponse;
-import com.example.block.converter.PointConverter;
 import com.example.block.converter.ReviewConverter;
 import com.example.block.domain.mapping.Review;
-import com.example.block.global.apiPayload.code.status.ErrorStatus;
-import com.example.block.global.apiPayload.exception.GeneralException;
-import com.example.block.service.DTO.ReviewResponseDTO;
+import com.example.block.dto.ReviewResponseDTO;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;

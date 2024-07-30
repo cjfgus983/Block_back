@@ -3,8 +3,8 @@ package com.example.block.controller;
 
 import com.example.block.global.apiPayload.code.status.ErrorStatus;
 import com.example.block.global.apiPayload.exception.GeneralException;
-import com.example.block.service.DTO.KakaoPayRequestDTO;
-import com.example.block.service.DTO.KakaoPayResponseDTO;
+import com.example.block.dto.KakaoPayRequestDTO;
+import com.example.block.dto.KakaoPayResponseDTO;
 import com.example.block.service.PointService;
 import com.example.block.service.kakao.KakaoPayService;
 import io.swagger.v3.oas.annotations.Operation;

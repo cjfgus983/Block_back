@@ -7,12 +7,11 @@ import com.example.block.converter.PointConverter;
 import com.example.block.domain.PointDetail;
 import com.example.block.domain.mapping.Applicant;
 import com.example.block.dto.MyPageResponseDTO;
-import com.example.block.service.DTO.PointRequestDTO;
-import com.example.block.service.DTO.PointResponseDTO;
+import com.example.block.dto.PointRequestDTO;
+import com.example.block.dto.PointResponseDTO;
 import com.example.block.service.MyPageService;
 import com.example.block.service.PointService;
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
