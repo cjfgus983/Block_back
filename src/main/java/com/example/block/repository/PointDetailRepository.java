@@ -12,7 +12,4 @@ public interface PointDetailRepository extends JpaRepository<PointDetail, Intege
     @Query("SELECT p FROM PointDetail p WHERE p.user.id = :userId ORDER BY p.created_at DESC")
     List<PointDetail> findTopByUserIdOrderByCreatedAtDesc(@Param("userId") Integer userId, Pageable pageable);
 
-
-    @Query("SELECT COALESCE(SUM(pd.amount), 0) FROM PointDetail pd WHERE pd.user.id = :userId")
-    Long sumAmountByUserId(@Param("userId") Integer userId);
 }
