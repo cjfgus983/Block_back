@@ -2,16 +2,17 @@ package com.example.block.domain;
 
 import com.example.block.domain.common.BaseEntity;
 import com.example.block.domain.enums.LoginType;
-import com.example.block.domain.mapping.Applicant;
+import com.example.block.domain.mapping.TransactionReview;
+
+
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.annotations.DynamicInsert;
-import org.hibernate.annotations.DynamicUpdate;
-import org.springframework.data.annotation.Id;
+
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+
 
 @Entity(name = "User")
 @Getter
@@ -71,6 +72,14 @@ public class User extends BaseEntity {
     @Column(columnDefinition = "BIGINT DEFAULT 0")
     private Long point;
 
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<TransactionReview> transactionReviewList=new ArrayList<>();
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<PointDetail> pointDetailList=new ArrayList<>();
+
+
     public void setId(Integer id) {
         this.id = id;
     }
@@ -79,6 +88,8 @@ public class User extends BaseEntity {
         return id;
     }
 
+
 //    @OneToMany(mappedBy = "user")
 //    private List<Applicant> applicantList = new ArrayList<Applicant>();
+
 }
