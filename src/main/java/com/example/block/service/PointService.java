@@ -53,7 +53,7 @@ public class PointService {
                 () -> new GeneralException(ErrorStatus._USER_NOT_FOUND));
 
         //pointDetail 추가
-        PointDetail pointDetail = PointConverter.toPointDetail(point,PointType.SPEND,"포인트 사용");
+        PointDetail pointDetail = PointConverter.toPointDetail(-point,PointType.SPEND,"포인트 사용");
         pointDetail.setUser(user);
         updateMyPoint(pointDetail);
 
@@ -94,7 +94,7 @@ public class PointService {
         transactionReview.setUserReview(user,review);
 
         //pointDetail 추가
-        PointDetail pointDetail = PointConverter.toPointDetail(point,PointType.KAKAOPAYSPEND,"공모전 후기 결제");
+        PointDetail pointDetail = PointConverter.toPointDetail(-point,PointType.KAKAOPAYSPEND,"공모전 후기 결제");
         pointDetail.setUser(user);
 
         updateMyPoint(pointDetail);
@@ -116,12 +116,7 @@ public class PointService {
 
     @Transactional
     public void updateMyPoint(PointDetail pointDetail){
-        if (pointDetail.getType() ==PointType.EARN) {
-            userRepository.incrementUserPoints(pointDetail.getUser().getId(), pointDetail.getAmount());
-        }else{
-            userRepository.decrementUserPoints(pointDetail.getUser().getId(), pointDetail.getAmount());
-        }
-
+        userRepository.incrementUserPoints(pointDetail.getUser().getId(), pointDetail.getAmount());
     }
 
 }
