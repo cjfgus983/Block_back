@@ -89,14 +89,6 @@ public class User extends BaseEntity {
     }
 
 
-    public void usePoint(Long point) {
-        this.point -= point;
-    }
-
-    public void chargePoint(Long point) {
-        this.point += point;
-    }
-
 //    @OneToMany(mappedBy = "user")
 //    private List<Applicant> applicantList = new ArrayList<Applicant>();
 

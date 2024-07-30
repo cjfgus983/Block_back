@@ -38,10 +38,11 @@ public class PointService {
         User user = userRepository.findById(userId).orElseThrow(
                 () -> new GeneralException(ErrorStatus._USER_NOT_FOUND));
 
-        user.chargePoint(point);
         //pointDetail 추가
         PointDetail pointDetail = PointConverter.toPointDetail(point,PointType.EARN,"리워드 지급");
         pointDetail.setUser(user);
+        updateMyPoint(pointDetail);
+
         return pointDetail;
     }
 
@@ -51,10 +52,11 @@ public class PointService {
         User user = userRepository.findById(userId).orElseThrow(
                 () -> new GeneralException(ErrorStatus._USER_NOT_FOUND));
 
-        user.usePoint(point);
         //pointDetail 추가
         PointDetail pointDetail = PointConverter.toPointDetail(point,PointType.SPEND,"포인트 사용");
         pointDetail.setUser(user);
+        updateMyPoint(pointDetail);
+
         return pointDetail;
     }
 
@@ -86,8 +88,6 @@ public class PointService {
         Review review=reviewRepository.findById(reviewId).orElseThrow(
                 () -> new GeneralException(ErrorStatus._REVIEW_NOT_FOUND));
 
-        //포인트 사용
-        user.usePoint(point);
 
         //transactionReview 추가
         TransactionReview transactionReview = TransactionReviewConverter.toTransactionReview(user,review);
@@ -97,6 +97,7 @@ public class PointService {
         PointDetail pointDetail = PointConverter.toPointDetail(point,PointType.KAKAOPAYSPEND,"공모전 후기 결제");
         pointDetail.setUser(user);
 
+        updateMyPoint(pointDetail);
     }
 
 
@@ -111,6 +112,16 @@ public class PointService {
         TransactionReview transactionReview = transactionReviewRepository.findAllByUserAndReview(user,review);
 
         return transactionReview != null;
+    }
+
+    @Transactional
+    public void updateMyPoint(PointDetail pointDetail){
+        if (pointDetail.getType() ==PointType.EARN) {
+            userRepository.incrementUserPoints(pointDetail.getUser().getId(), pointDetail.getAmount());
+        }else{
+            userRepository.decrementUserPoints(pointDetail.getUser().getId(), pointDetail.getAmount());
+        }
+
     }
 
 }
