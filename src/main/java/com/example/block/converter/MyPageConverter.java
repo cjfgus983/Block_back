@@ -1,5 +1,7 @@
 package com.example.block.converter;
 
+import com.example.block.domain.Contest;
+import com.example.block.domain.User;
 import com.example.block.domain.mapping.Applicant;
 import com.example.block.dto.MyPageResponseDTO;
 
@@ -17,5 +19,39 @@ public class MyPageConverter {
                         .applyPart(applicant.getApplyPart())
                         .build()
                 ).collect(Collectors.toList());
+    }
+
+    public static MyPageResponseDTO.myPageDTO toMyPageDTO(User user){
+        return MyPageResponseDTO.myPageDTO.builder()
+                .name(user.getName())
+                .imageUrl(user.getImageUrl())
+                .university(user.getUniversity())
+                .major(user.getUnivMajor())
+//                .category(user.getCategory()) // Category Enum 추가 후 주석 해제
+                .loginType(user.getLoginType())
+                .build();
+    }
+
+    public static MyPageResponseDTO.myPageEditDataDTO toMyPageEditDataDTO(User user){
+        return MyPageResponseDTO.myPageEditDataDTO.builder()
+                .userId(user.getUserId())
+                .passWord(user.getPassWord())
+                .birthDay(user.getBirthDay())
+                .phoneNumber(user.getPhoneNumber())
+                .address(user.getAddress())
+                .university(user.getUniversity())
+                .univMajor(user.getUnivMajor())
+                .portfolio(user.getPortfolio())
+//                .category(user.getCategory()) // Category Enum 추가 후 주석 해제
+                .build();
+    }
+
+    public static MyPageResponseDTO.contestDTO toContestDTO(Contest contest){
+        return MyPageResponseDTO.contestDTO.builder()
+                .id(contest.getId())
+                .imageUrl(contest.getImageUrl())
+                .applyUrl(contest.getApplyUrl())
+//                .status(contest.getStatus()) // ContestType Enum 추가 후 주석 해제
+                .build();
     }
 }
