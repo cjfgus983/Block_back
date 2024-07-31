@@ -5,8 +5,9 @@ spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/block
-    username: 'root'
-    password: '0000'
+    username: root
+    password: #MySQL password
+
 
   sql:
     init:
@@ -20,3 +21,7 @@ spring:
         use_sql_comments: true
         hbm2ddl:
           auto: update
+
+  profiles:
+    include: API-KEY
+
