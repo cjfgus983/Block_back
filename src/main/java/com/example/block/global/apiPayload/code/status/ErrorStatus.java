@@ -14,6 +14,8 @@ public enum ErrorStatus implements BaseErrorCode {
     _UNAUTHORIZED(HttpStatus.UNAUTHORIZED,"COMMON401","인증이 필요합니다."),
     _FORBIDDEN(HttpStatus.FORBIDDEN, "COMMON403", "금지된 요청입니다."),
 
+    EMAIL_NOT_FOUND(HttpStatus.BAD_REQUEST, "EMAIL400", "Email 정보가 없습니다."),
+    USERID_NOT_FOUND(HttpStatus.BAD_REQUEST, "USER400", "USER 정보가 없습니다."),
     CHALLENGER_ALREADY_EXISTS(HttpStatus.BAD_REQUEST, "APPLY400", "이미 지원한 공모전입니다.")
     ;
 

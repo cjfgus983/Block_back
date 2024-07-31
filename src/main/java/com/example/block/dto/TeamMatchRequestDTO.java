@@ -8,7 +8,6 @@ public class TeamMatchRequestDTO {
 
     @Getter
     public static class ApplyDTO {
-
         @NotNull
         ApplyPart applyPart;
         String content;

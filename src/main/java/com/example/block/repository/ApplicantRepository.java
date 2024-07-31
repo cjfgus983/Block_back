@@ -11,4 +11,6 @@ public interface ApplicantRepository extends JpaRepository<Applicant, Integer> {
     List<Applicant> findByContestId(Integer contestId);
     Applicant findByContestIdAndId(Integer contestId, Integer id);
     Optional<Applicant> findByContestIdAndUserId(Integer contestId, Integer userId);
+
+    Integer getUserIdByapplicantId(Integer applicantId);
 }

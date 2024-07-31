@@ -3,6 +3,7 @@ package com.example.block.domain;
 import com.example.block.domain.common.BaseEntity;
 import com.example.block.domain.enums.LoginType;
 import com.example.block.domain.mapping.Applicant;
+import com.example.block.domain.mapping.Likes;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.DynamicInsert;
@@ -78,6 +79,9 @@ public class User extends BaseEntity {
     public Integer getId() {
         return id;
     }
+
+    @OneToMany(mappedBy = "likes")
+    private List<Likes> likesList = new ArrayList<Likes>();
 
 //    @OneToMany(mappedBy = "user")
 //    private List<Applicant> applicantList = new ArrayList<Applicant>();
