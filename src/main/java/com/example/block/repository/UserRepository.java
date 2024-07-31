@@ -7,9 +7,9 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 
 public interface UserRepository extends JpaRepository<User, Integer> {
+    String getEmailById(Integer userId);
     @Modifying
     @Query("UPDATE User u SET u.point = u.point + :amount WHERE u.id = :userId")
     void calculateUserPoints(Integer userId, Long amount);
-
 
 }

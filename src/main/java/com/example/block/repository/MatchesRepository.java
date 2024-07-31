@@ -14,4 +14,6 @@ public interface MatchesRepository extends JpaRepository<Matches, Integer> {
             "FROM matches m WHERE m.contest_id = :contestId AND (m.user_id1 = :userId OR m.user_id2 = :userId)",
             nativeQuery = true)
     List<Integer> findMatchedUsersByUserIdAndContestId(@Param("userId") Integer userId, @Param("contestId") Integer contestId);
+
+    Boolean existsByUserId1AndUserId2AndContestId(Integer userId1,Integer userId2,Integer contestId);
 }
