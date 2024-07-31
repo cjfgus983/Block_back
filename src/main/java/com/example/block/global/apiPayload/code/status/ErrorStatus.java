@@ -13,8 +13,7 @@ public enum ErrorStatus implements BaseErrorCode {
     _BAD_REQUEST(HttpStatus.BAD_REQUEST,"COMMON400","잘못된 요청입니다."),
     _UNAUTHORIZED(HttpStatus.UNAUTHORIZED,"COMMON401","인증이 필요합니다."),
     _FORBIDDEN(HttpStatus.FORBIDDEN, "COMMON403", "금지된 요청입니다."),
-    EMAIL_NOT_FOUND(HttpStatus.NOT_FOUND, "EMAIL400", "Email 정보가 없습니다."),
-    USERID_NOT_FOUND(HttpStatus.BAD_REQUEST, "USER400", "USER 정보가 없습니다."),
+
     //결제 관련 오류
     _PAY_CANCEL(HttpStatus.BAD_REQUEST,"PAY400","결제가 취소되었습니다."),
     _PAY_FAIL(HttpStatus.BAD_REQUEST,"PAY400","결제에 실패하였습니다."),
