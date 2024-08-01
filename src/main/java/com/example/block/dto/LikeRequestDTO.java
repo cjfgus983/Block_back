@@ -9,18 +9,4 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 public class LikeRequestDTO {
-//    @Getter
-//    @Builder
-//    @NoArgsConstructor
-//    @AllArgsConstructor
-//    public static class LikeDTO{
-//        @NotNull
-//        Integer userLikerId;
-//
-//        @NotNull
-//        Integer userLikedId;
-//
-//        @NotNull
-//        Integer contestId;
-//    }
 }
