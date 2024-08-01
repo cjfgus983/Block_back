@@ -46,7 +46,7 @@ public class MyPageConverter {
                 .build();
     }
 
-    public static MyPageResponseDTO.contestDTO toContestDTO(Contest contest){
+    public static MyPageResponseDTO.contestDTO toMyContestDTO(Contest contest){
         return MyPageResponseDTO.contestDTO.builder()
                 .id(contest.getId())
                 .imageUrl(contest.getImageUrl())

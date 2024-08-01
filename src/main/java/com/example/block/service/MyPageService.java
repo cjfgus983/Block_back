@@ -69,21 +69,11 @@ public class MyPageService {
     }
 
     // 저장한 공모전을 모두 조회
+    public List<MyPageResponseDTO.contestDTO> getMyContestList(Integer userId){
+        List<MyContest> myContestList = mycontestRepository.findByUserId(userId);
+        return myContestList.stream()
+                .map(contest -> MyPageConverter.toMyContestDTO(contest.getContest()))
+                .collect(Collectors.toList());
+    }
 
-    // TODO: 수정
-//    public List<MyPageResponseDTO.contestDTO> getMyAllContest(Integer userId) {
-//        List<MyContest> contestList = mycontestRepository.findAll();
-//        return IntStream.range(0, contestList.size())
-//                .mapToObj(index -> {
-//                    MyContest mycontest = contestList.get(index);
-//                    return MyPageResponseDTO.contestDTO.builder()
-//                            .myContestId(index)
-//                            .id(mycontest.getId())
-////                            .imageUrl(mycontest.getImageUrl())
-////                            .applyUrl(mycontest.getApplyUrl())
-////                            // .status(contest.getStatus()) // ContestType Enum 추가 후 주석 해제
-////                            .build();
-//                })
-//                .collect(Collectors.toList());
-//    }
 }

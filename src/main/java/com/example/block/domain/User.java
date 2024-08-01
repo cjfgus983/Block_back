@@ -89,8 +89,11 @@ public class User extends BaseEntity {
         return id;
     }
 
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<MyContest> myContestList = new ArrayList<>();
 
 //    @OneToMany(mappedBy = "user")
 //    private List<Applicant> applicantList = new ArrayList<Applicant>();
+
 
 }

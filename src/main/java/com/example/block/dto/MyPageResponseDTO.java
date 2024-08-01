@@ -3,6 +3,9 @@ package com.example.block.dto;
 import com.example.block.domain.enums.ApplyPart;
 import com.example.block.domain.enums.ContestType;
 import com.example.block.domain.enums.LoginType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -58,8 +61,9 @@ public class MyPageResponseDTO {
     @NoArgsConstructor
     @AllArgsConstructor
     public static class contestDTO {
-        Integer myContestId;
 
+        @Id
+        @GeneratedValue(strategy = GenerationType.IDENTITY)
         Integer id;
         String applyUrl;
         String imageUrl;

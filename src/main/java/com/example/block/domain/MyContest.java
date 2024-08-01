@@ -3,7 +3,6 @@ package com.example.block.domain;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.Map;
 
 @Entity
 @Table(name = "mycontest")
@@ -13,15 +12,17 @@ import java.util.Map;
 @RequiredArgsConstructor
 @AllArgsConstructor
 public class MyContest {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    private Integer userId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id") // User 엔티티의 id와 매핑
+    private User user;
 
-    @ElementCollection
-    @CollectionTable(name = "contest_info_map", joinColumns = @JoinColumn(name = "my_contest_id"))
-    @MapKeyJoinColumn(name = "contest_info_id")
-    @Column(name = "contest_number")
-    private Map<Contest, Integer> myContestList;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "contest_id") // Contest 엔티티의 id와 매핑
+    private Contest contest;
 }

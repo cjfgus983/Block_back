@@ -19,7 +19,6 @@ public class HomeController {
     @GetMapping("/")
     @Operation(summary = "홈 화면")
     public ApiResponse<HomeRequestDTO.HomePageRequestDTO> home() {
-        List<HomeRequestDTO.HomeContestDTO> allContestList = homePageService.getAllContestList();
         HomeRequestDTO.HomePageRequestDTO homePageRequestDTO = homePageService.getHomePageRequestDTO();
         return ApiResponse.onSuccess(homePageRequestDTO);
     }

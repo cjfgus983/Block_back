@@ -16,31 +16,21 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/contest")
 public class ContestController {
     private final ContestService contestService;
-    private final MyContestRepository myContestRepository;
 
     // 공모전 상세 페이지
     @GetMapping("{contestId}")
     @Operation(summary = "공모전 상세 페이지")
-    public ContestResponseDTO.ContestInfoDTO getContestInfo(@PathVariable Integer contestId) {
-        return contestService.getContestInfo(contestId);
+    public ApiResponse<ContestResponseDTO.ContestInfoDTO> getContestInfo(@PathVariable Integer contestId) {
+        return ApiResponse.onSuccess(contestService.getContestInfo(contestId));
     }
 
-    // 공모전 링크로 이동
-    // TODO: 공모전 링크로 이동하는 리다이렉션 구현.
-    @GetMapping("{contestId}/apply")
-    @Operation(summary = "공모전 링크로 이동")
-    public ApiResponse<String> getContestApplyUrl(@PathVariable Integer contestId) {
-        return ApiResponse.onSuccess(contestService.getContestApplyUrl(contestId));
-    }
 
     // 공모전 저장
     @PostMapping("{contestId}/save")
     @Operation(summary = "공모전 저장")
-    public ApiResponse<MyContest> saveContest(@PathVariable Integer contestId, @RequestParam Integer userId) {
+    public ApiResponse<String> saveContest(@PathVariable Integer contestId, @RequestParam Integer userId) {
         contestService.saveMyContest(contestId, userId);
 
-        // 똑바로 들어갔는지 확인하기 위함(테스트용)
-        MyContest contest = myContestRepository.findByUserIdAndId(userId, contestId);
-        return ApiResponse.onSuccess(contest);
+        return ApiResponse.onSuccess("공모전이 저장되었습니다.");
     }
 }

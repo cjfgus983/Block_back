@@ -4,8 +4,10 @@ import com.example.block.ApiResponse;
 
 import com.example.block.converter.MyPageConverter;
 import com.example.block.converter.PointConverter;
+import com.example.block.domain.MyContest;
 import com.example.block.domain.PointDetail;
 import com.example.block.domain.User;
+import com.example.block.domain.enums.LoginType;
 import com.example.block.domain.mapping.Applicant;
 import com.example.block.dto.MyPageResponseDTO;
 import com.example.block.dto.PointRequestDTO;
@@ -16,6 +18,7 @@ import com.example.block.service.PointService;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.view.RedirectView;
 
 import java.util.List;
 
@@ -77,6 +80,11 @@ public class MyPageController {
     public ApiResponse<MyPageResponseDTO.myPageDTO> getMyPageMain(@RequestParam(name = "userId") Integer userId) {
         // 마이 페이지 메인 화면 데이터 조회
         MyPageResponseDTO.myPageDTO user = myPageService.getMyPageUser(userId);
+
+        // 카카오 로그인 시 카카오 페이지로 리다이렉트
+//        if (user.getLoginType() == LoginType.Kakao) {
+//            return (new RedirectView("/mypage/{userId}/kakao"));
+//        }
         return ApiResponse.onSuccess(user);
     }
 
@@ -85,7 +93,7 @@ public class MyPageController {
     @Operation(summary = "마이 페이지_내 정보 수정")
     public ApiResponse<MyPageResponseDTO.myPageDTO> editMyPage(@RequestParam(name = "userId") Integer userId) {
         // 마이 페이지 내 정보 수정
-        // 기본 정보는 메인 화면과 똑같이 보여주면서 수정 가능한 뷰를 보여주므로 같은 메소드 사용
+        // 기본 정보는 메인 화면과 똑같이 보여주면서 수정 가능한 리스트의 뷰를 보여주므로 같은 메소드 사용
         MyPageResponseDTO.myPageDTO user = myPageService.getMyPageUser(userId);
         return ApiResponse.onSuccess(user);
     }
@@ -94,12 +102,12 @@ public class MyPageController {
     @PostMapping("{userId}/edit")
     @Operation(summary = "마이 페이지_내 정보 수정 완료")
     // 수정된 정보를 확인하기 위해 User를 반환함
-    public ApiResponse<User> editMyPageComplete(@RequestParam(name = "userId") Integer userId,
+    public String editMyPageComplete(@RequestParam(name = "userId") Integer userId,
                                                 @RequestBody MyPageResponseDTO.myPageEditDataDTO updatedUser) {
         // 수정된 정보를 저장하고
         myPageService.updateUser(userId, updatedUser);
         // 메인 화면으로 리다이렉트
-        return ApiResponse.onSuccess(userRepository.findByUserId(userId));
+        return "redirect:/"; // "/"로 리다이렉트
     }
 
     // 마이페이지 옵션 내 저장한 공모전, 후기 조회
@@ -112,12 +120,10 @@ public class MyPageController {
     }
 
     // 마이페이지 옵션 내 저장한 공모전 조회
-    // TODO: 마이페이지 옵션 내 저장한 공모전 조회 구현
-//    @GetMapping("myContests")
-//    @Operation(summary = "마이페이지 옵션 내 저장한 공모전 조회")
-//    public ApiResponse<List<MyPageResponseDTO.contestDTO>> getMyContests(@RequestParam(name = "userId") Integer userId) {
-//        // 내가 저장한 공모전 목록 조회
-//        List<MyPageResponseDTO.contestDTO> contestList = myPageService.getMyAllContest(userId);
-//        return ApiResponse.onSuccess(contestList);
-//    }
+    @GetMapping("myContests")
+    @Operation(summary = "마이페이지 옵션 내 저장한 공모전 조회")
+    public ApiResponse<List<MyPageResponseDTO.contestDTO>> getMyContests(@RequestParam(name = "userId") Integer userId) {
+        // 내가 저장한 공모전 목록 조회
+        return ApiResponse.onSuccess(myPageService.getMyContestList(userId));
+    }
 }
