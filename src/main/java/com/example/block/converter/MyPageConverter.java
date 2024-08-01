@@ -29,7 +29,7 @@ public class MyPageConverter {
                 .university(user.getUniversity())
                 .major(user.getUnivMajor())
 //                .category(user.getCategory()) // Category Enum 추가 후 주석 해제
-                .loginType(user.getLoginType())
+//                .loginType(user.getLoginType()) // LoginType Enum 추가 후 주석 해제
                 .build();
     }
 
