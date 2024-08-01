@@ -34,6 +34,8 @@ public enum ErrorStatus implements BaseErrorCode {
 
     //인증 관련
     NOT_FOUND_END_POINT(HttpStatus.NOT_FOUND, "40400", "존재하지 않는 API 엔드포인트입니다."),
+    NOT_FOUND_LOGIN_USER( HttpStatus.NOT_FOUND,"40401", "로그인한 사용자가 존재하지 않습니다."),
+    INVALID_HEADER_ERROR(HttpStatus.BAD_REQUEST, "40003" ,"유효하지 않은 헤더입니다."),
 
 
     CHALLENGER_ALREADY_EXISTS(HttpStatus.BAD_REQUEST, "APPLY400", "이미 지원한 공모전입니다.")
