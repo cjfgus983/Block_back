@@ -3,7 +3,7 @@ package com.example.block.controller;
 import com.example.block.ApiResponse;
 import com.example.block.converter.LikeConverter;
 import com.example.block.domain.mapping.Likes;
-import com.example.block.dto.LikeResposeDTO;
+import com.example.block.dto.LikeResponseDTO;
 import com.example.block.service.LikeService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -16,13 +16,13 @@ public class LikeController {
     private final LikeService likeService;
 
     @PostMapping("/applicant/{applicantId}")
-    public ApiResponse<LikeResposeDTO.LikeResultDTO> like(@Valid @PathVariable("contestId") Integer contestId,
-                                            @PathVariable("applicantId") Integer applicantId,
-                                            @RequestParam(name = "userId") Integer userId){
+    public ApiResponse<LikeResponseDTO.LikeResultDTO> like(@Valid @PathVariable("contestId") Integer contestId,
+                                                           @PathVariable("applicantId") Integer applicantId,
+                                                           @RequestParam(name = "userId") Integer userId){
         likeService.likeUser(userId, applicantId, contestId);
         return processLikeResult(userId, applicantId, contestId);
     }
-    private ApiResponse<LikeResposeDTO.LikeResultDTO> processLikeResult(Integer userId, Integer applicantId, Integer contestId) {
+    private ApiResponse<LikeResponseDTO.LikeResultDTO> processLikeResult(Integer userId, Integer applicantId, Integer contestId) {
         if(likeService.hasMatched(userId, applicantId , contestId)){
             return ApiResponse.onSuccess(LikeConverter.toAlreadyMatchedDTO());
         }
