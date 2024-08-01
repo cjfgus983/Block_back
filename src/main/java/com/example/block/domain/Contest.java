@@ -50,4 +50,10 @@ public class Contest extends BaseEntity {
 
     @Column(nullable = false)
     private String host;
+<<<<<<< HEAD
+
+    @OneToMany(mappedBy = "contest")
+    private List<Likes> likesList = new ArrayList<>();
+=======
+>>>>>>> ac6d57fd0e6501ad5efebcca5e8197100e947bc1
 }
