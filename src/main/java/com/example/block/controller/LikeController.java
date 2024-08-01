@@ -5,7 +5,6 @@ import com.example.block.converter.LikeConverter;
 import com.example.block.domain.mapping.Likes;
 import com.example.block.dto.LikeResposeDTO;
 import com.example.block.service.LikeService;
-import com.example.block.service.TeamMatchService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -30,7 +29,7 @@ public class LikeController {
         else {
             if(likeService.hasLiked(userId, applicantId, contestId)) {
                 likeService.match(userId, applicantId, contestId);
-                return ApiResponse.onSuccess(LikeConverter.toEachLikeDTO(likeService.getEmail(userId), likeService.getEmail(applicantId)));
+                return ApiResponse.onSuccess(LikeConverter.toEachLikeDTO(likeService.findEmail(userId), likeService.findEmail(likeService.findUser(applicantId, contestId))));
             }
             else{
                 return ApiResponse.onSuccess(LikeConverter.toSingleLikeDTO());
@@ -39,14 +38,13 @@ public class LikeController {
     }
 
 
-    @PostMapping("/applicant/{applicantId}")
-    public ApiResponse<LikeResposeDTO.DeleteLikeResultDTO> deleteLike(@Valid @PathVariable("contestId") Integer contestId,
+    @PostMapping("/applicant/{applicantId}/delete")
+    public void deleteLike(@Valid @PathVariable("contestId") Integer contestId,
                                                                         @PathVariable("applicantId") Integer applicantId,
                                                                         @RequestParam(name = "userId") Integer userId){
 //       내가 삭제시킬 엔티티 생성이후 삭제 로직
-        Likes deletedLike = likeService.deleteLike(userId, applicantId, contestId);
+        likeService.deleteLike(userId, applicantId, contestId);
 //        엔티티에서 응답 dto로 변환이후 응답
-        return ApiResponse.onSuccess(LikeConverter.toDeleteLikeDTO(deletedLike));
     }
 
 

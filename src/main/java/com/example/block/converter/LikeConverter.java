@@ -43,7 +43,7 @@ public class LikeConverter {
         return LikeResposeDTO.LikeResultDTO.builder()
                 .user1Email(user1Email)
                 .user2Email(user2Email)
-                .message("Matched!")
+                .message("Matching!")
                 .build();
     }
     public static LikeResposeDTO.DeleteLikeResultDTO toDeleteLikeDTO(Likes deletedLike){
