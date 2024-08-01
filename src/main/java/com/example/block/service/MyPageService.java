@@ -2,6 +2,7 @@ package com.example.block.service;
 
 import com.example.block.converter.MyPageConverter;
 import com.example.block.domain.Contest;
+import com.example.block.domain.MyContest;
 import com.example.block.domain.User;
 import com.example.block.domain.mapping.Applicant;
 import com.example.block.domain.mapping.Likes;
@@ -21,7 +22,7 @@ public class MyPageService {
     private final LikesRepository likesRepository;
     private final ApplicantRepository applicantRepository;
     private final UserRepository userRepository;
-    private final ContestRepository contestRepository;
+    private final MyContestRepository mycontestRepository;
 
     public Applicant getChallenger(Integer contestId, Integer userId){
         return applicantRepository.findByContestIdAndUserId(contestId, userId).get();
@@ -68,19 +69,21 @@ public class MyPageService {
     }
 
     // 저장한 공모전을 모두 조회
-    public List<MyPageResponseDTO.contestDTO> getMyAllContest(Integer userId) {
-        List<Contest> contestList = contestRepository.findAll();
-        return IntStream.range(0, contestList.size())
-                .mapToObj(index -> {
-                    Contest contest = contestList.get(index);
-                    return MyPageResponseDTO.contestDTO.builder()
-                            .myContestId(index)
-                            .id(contest.getId())
-                            .imageUrl(contest.getImageUrl())
-                            .applyUrl(contest.getApplyUrl())
-                            // .status(contest.getStatus()) // ContestType Enum 추가 후 주석 해제
-                            .build();
-                })
-                .collect(Collectors.toList());
-    }
+
+    // TODO: 수정
+//    public List<MyPageResponseDTO.contestDTO> getMyAllContest(Integer userId) {
+//        List<MyContest> contestList = mycontestRepository.findAll();
+//        return IntStream.range(0, contestList.size())
+//                .mapToObj(index -> {
+//                    MyContest mycontest = contestList.get(index);
+//                    return MyPageResponseDTO.contestDTO.builder()
+//                            .myContestId(index)
+//                            .id(mycontest.getId())
+////                            .imageUrl(mycontest.getImageUrl())
+////                            .applyUrl(mycontest.getApplyUrl())
+////                            // .status(contest.getStatus()) // ContestType Enum 추가 후 주석 해제
+////                            .build();
+//                })
+//                .collect(Collectors.toList());
+//    }
 }

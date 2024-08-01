@@ -12,8 +12,6 @@ public class ContestResponseDTO {
     @RequiredArgsConstructor
     @AllArgsConstructor
     public static class ContestInfoDTO {
-        private Integer myContestId;
-
         private Integer contestId;
         private String contestName;
         private String contestImage;

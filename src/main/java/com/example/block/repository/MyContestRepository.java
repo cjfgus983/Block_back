@@ -1,9 +1,9 @@
 package com.example.block.repository;
 
-import com.example.block.domain.User;
-import com.example.block.dto.MyContestResponseDTO;
+import com.example.block.domain.MyContest;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface MyContestRepository extends JpaRepository<MyContestResponseDTO.MyContestListDTO, Integer> {
-    MyContestResponseDTO.MyContestListDTO findByUserId(Integer userId);
+public interface MyContestRepository extends JpaRepository<MyContest, Integer> {
+    MyContest findByUserId(Integer userId);
+    MyContest findByUserIdAndId(Integer userId, Integer Id);
 }

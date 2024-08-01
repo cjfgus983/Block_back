@@ -112,11 +112,12 @@ public class MyPageController {
     }
 
     // 마이페이지 옵션 내 저장한 공모전 조회
-    @GetMapping("myContests")
-    @Operation(summary = "마이페이지 옵션 내 저장한 공모전 조회")
-    public ApiResponse<List<MyPageResponseDTO.contestDTO>> getMyContests(@RequestParam(name = "userId") Integer userId) {
-        // 내가 저장한 공모전 목록 조회
-        List<MyPageResponseDTO.contestDTO> contestList = myPageService.getMyAllContest(userId);
-        return ApiResponse.onSuccess(contestList);
-    }
+    // TODO: 마이페이지 옵션 내 저장한 공모전 조회 구현
+//    @GetMapping("myContests")
+//    @Operation(summary = "마이페이지 옵션 내 저장한 공모전 조회")
+//    public ApiResponse<List<MyPageResponseDTO.contestDTO>> getMyContests(@RequestParam(name = "userId") Integer userId) {
+//        // 내가 저장한 공모전 목록 조회
+//        List<MyPageResponseDTO.contestDTO> contestList = myPageService.getMyAllContest(userId);
+//        return ApiResponse.onSuccess(contestList);
+//    }
 }
