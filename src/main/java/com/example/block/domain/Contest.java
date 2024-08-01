@@ -3,6 +3,7 @@ package com.example.block.domain;
 import com.example.block.domain.common.BaseEntity;
 import com.example.block.domain.enums.ContestType;
 import com.example.block.domain.mapping.Applicant;
+import com.example.block.domain.mapping.Likes;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
@@ -50,10 +51,7 @@ public class Contest extends BaseEntity {
 
     @Column(nullable = false)
     private String host;
-<<<<<<< HEAD
 
     @OneToMany(mappedBy = "contest")
     private List<Likes> likesList = new ArrayList<>();
-=======
->>>>>>> ac6d57fd0e6501ad5efebcca5e8197100e947bc1
 }
