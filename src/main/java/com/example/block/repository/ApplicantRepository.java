@@ -15,9 +15,8 @@ public interface ApplicantRepository extends JpaRepository<Applicant, Integer> {
     Applicant findByContestIdAndId(Integer contestId, Integer id);
     Optional<Applicant> findByContestIdAndUserId(Integer contestId, Integer userId);
 
-//    User findUserByIdAndContestId(Integer applicantId, Integer contestId);
-
     @Query("SELECT a.user FROM Applicant a WHERE a.id = :applicantId AND a.contest.id = :contestId")
     User findUserByIdAndContestId(@Param("applicantId") Integer applicantId, @Param("contestId") Integer contestId);
+
 
 }

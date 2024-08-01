@@ -5,9 +5,8 @@ import com.example.block.domain.User;
 import com.example.block.domain.mapping.Likes;
 import com.example.block.domain.mapping.Matches;
 import com.example.block.global.apiPayload.code.status.ErrorStatus;
-import com.example.block.global.apiPayload.exception.handler.EmailHandler;
+import com.example.block.global.apiPayload.exception.GeneralException;
 import com.example.block.global.apiPayload.exception.handler.LikeHandler;
-import com.example.block.global.apiPayload.exception.handler.UserHandler;
 import com.example.block.repository.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -40,14 +39,14 @@ public class LikeServiceImpl implements LikeService{
     public Integer findUser(Integer applicantId, Integer contestId){
         User user = applicantRepository.findUserByIdAndContestId(applicantId, contestId);
         if (user == null) {
-            throw new UserHandler(ErrorStatus.USERID_NOT_FOUND);
+            throw new GeneralException(ErrorStatus.USERID_NOT_FOUND);
         }
         return user.getId();
     }
     public String findEmail(Integer userId){
         String email = userRepository.getEmailById(userId);
         if (email == null) {
-            throw new EmailHandler(ErrorStatus.EMAIL_NOT_FOUND);
+            throw new GeneralException(ErrorStatus.EMAIL_NOT_FOUND);
         }
         return email;
     }

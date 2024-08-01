@@ -2,8 +2,6 @@ package com.example.block.domain;
 
 import com.example.block.domain.common.BaseEntity;
 import com.example.block.domain.enums.LoginType;
-import com.example.block.domain.mapping.Applicant;
-import com.example.block.domain.mapping.Likes;
 import com.example.block.domain.mapping.TransactionReview;
 
 
