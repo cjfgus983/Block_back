@@ -17,6 +17,7 @@ public class MyPageConverter {
                         .university(applicant.getUser().getUniversity())
                         .major(applicant.getUser().getUnivMajor())
                         .applyPart(applicant.getApplyPart())
+                        .contestTitle(applicant.getContest().getTitle())
                         .build()
                 ).collect(Collectors.toList());
     }

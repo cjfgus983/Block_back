@@ -7,10 +7,10 @@ import jakarta.persistence.*;
 import lombok.*;
 
 @Entity(name = "Matches")
-@Table(indexes = {
-        @Index(name = "user1_contest_idx", columnList = "user_id1, contest_id"),
-        @Index(name = "user2_contest_idx", columnList = "user_id2, contest_id")
-})
+//@Table(indexes = {
+//        @Index(name = "user1_contest_idx", columnList = "user_id1, contest_id"),
+//        @Index(name = "user2_contest_idx", columnList = "user_id2, contest_id")
+//})
 @Getter
 @Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -22,11 +22,11 @@ public class Matches extends BaseEntity {
     private Integer id;
 
     @ManyToOne
-    @JoinColumn(name = "user_id1")
+    @JoinColumn(name = "user_id_1")
     private User user1;
 
     @ManyToOne
-    @JoinColumn(name = "user_id2")
+    @JoinColumn(name = "user_id_2")
     private User user2;
 
     @ManyToOne

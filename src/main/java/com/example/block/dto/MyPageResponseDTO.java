@@ -22,6 +22,8 @@ public class MyPageResponseDTO {
         String university;
         String major;
         ApplyPart applyPart;
+        String contestTitle;
+//        String profileImageUrl;
     }
 
     // mypage 메인화면에서 활용

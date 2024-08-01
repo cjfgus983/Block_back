@@ -50,7 +50,4 @@ public class Contest extends BaseEntity {
 
     @Column(nullable = false)
     private String host;
-
-    @OneToMany(mappedBy = "contest", cascade = CascadeType.ALL)
-    private List<MyContest> myContestList = new ArrayList<>();
 }

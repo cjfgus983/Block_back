@@ -2,6 +2,7 @@ package com.example.block.domain;
 
 import com.example.block.domain.common.BaseEntity;
 import com.example.block.domain.enums.LoginType;
+import com.example.block.domain.mapping.Likes;
 import com.example.block.domain.mapping.TransactionReview;
 
 
@@ -32,7 +33,7 @@ public class User extends BaseEntity {
     @Column(nullable = true,length = 50)
     private String passWord;
 
-    @Column(nullable = true, length = 50)
+    @Column(name = "email",nullable = true, length = 50)
     private String email;
 
     @Column(nullable = true, length = 1023)
@@ -59,9 +60,9 @@ public class User extends BaseEntity {
     @Column(nullable = true, length = 25)
     private String univMajor;
 
-    @Enumerated(EnumType.STRING)
-    @Column(columnDefinition = "VARCHAR(10)")
-    private LoginType loginType;
+//    @Enumerated(EnumType.STRING)
+//    @Column(columnDefinition = "VARCHAR(10) DEFAULT kakao ")
+//    private LoginType loginType;
 
     //    0 = FALSE, 1 = TRUE
     @Column(columnDefinition = "TINYINT(1) DEFAULT 0")
@@ -92,8 +93,12 @@ public class User extends BaseEntity {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<MyContest> myContestList = new ArrayList<>();
 
-//    @OneToMany(mappedBy = "user")
-//    private List<Applicant> applicantList = new ArrayList<Applicant>();
+    @OneToMany(mappedBy = "userLiker", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Likes> likerList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "userLiked", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Likes> likedList = new ArrayList<>();
+
 
 
 }
