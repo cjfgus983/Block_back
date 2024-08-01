@@ -29,10 +29,14 @@ public enum ErrorStatus implements BaseErrorCode {
     _REVIEW_NOT_FOUND(HttpStatus.NOT_FOUND,"REVIEW404","리뷰가 존재하지 않습니다."),
     //유저 관련
     _USER_NOT_FOUND(HttpStatus.NOT_FOUND,"USER404","유저가 존재하지 않습니다."),
+    EXIST_EMAIL( HttpStatus.CONFLICT, "EMAIL405", "이미 존재하는 이메일입니다."),
+    NOT_FOUND_PASSWORD(HttpStatus.NOT_FOUND,"40405" , "비밀번호가 일치하지 않습니다."),
+
 
     CHALLENGER_ALREADY_EXISTS(HttpStatus.BAD_REQUEST, "APPLY400", "이미 지원한 공모전입니다.")
 
-    ;
+
+            ;
 
     private final HttpStatus httpStatus;
     private final String code;
