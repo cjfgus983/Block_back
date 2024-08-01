@@ -7,6 +7,7 @@ import com.example.block.domain.User;
 import com.example.block.domain.enums.PointType;
 import com.example.block.domain.mapping.Review;
 import com.example.block.domain.mapping.TransactionReview;
+import com.example.block.dto.PointRequestDTO;
 import com.example.block.global.apiPayload.code.status.ErrorStatus;
 import com.example.block.global.apiPayload.exception.GeneralException;
 import com.example.block.repository.PointDetailRepository;
@@ -33,13 +34,13 @@ public class PointService {
     private final PointDetailRepository pointDetailRepository;
 
     @Transactional
-    public PointDetail chargePoint(Integer userId, Long point) {
+    public PointDetail chargePoint(Integer userId,PointRequestDTO.PointCharge request) {
         //포인트 충전
         User user = userRepository.findById(userId).orElseThrow(
                 () -> new GeneralException(ErrorStatus._USER_NOT_FOUND));
 
         //pointDetail 추가
-        PointDetail pointDetail = PointConverter.toPointDetail(point,PointType.EARN,"리워드 지급");
+        PointDetail pointDetail = PointConverter.toPointDetail(request.getPoint(),PointType.EARN,request.getReason());
         pointDetail.setUser(user);
 
         updateMyPoint(pointDetail);
@@ -48,13 +49,13 @@ public class PointService {
     }
 
     @Transactional
-    public PointDetail usePoint(Integer userId, Long point) {
+    public PointDetail usePoint(Integer userId, PointRequestDTO.PointCharge request) {
         //포인트 사용
         User user = userRepository.findById(userId).orElseThrow(
                 () -> new GeneralException(ErrorStatus._USER_NOT_FOUND));
 
         //pointDetail 추가 -> 포인트 사용은 -로 표시
-        PointDetail pointDetail = PointConverter.toPointDetail(-point,PointType.SPEND,"포인트 사용");
+        PointDetail pointDetail = PointConverter.toPointDetail(-request.getPoint(),PointType.SPEND,request.getReason());
         pointDetail.setUser(user);
 
         updateMyPoint(pointDetail);

@@ -42,11 +42,11 @@ public class MyPageController {
     }
 
     @PostMapping("/{userId}/charge")
-    @Operation(summary = "포인트 지급")
+    @Operation(summary = "포인트 지급/포인트 상세내역 확인용")
     public ApiResponse<PointResponseDTO.GetMyPointDetailDTO> chargePoint(@PathVariable(name="userId") Integer userId,
                                                                          @RequestBody PointRequestDTO.PointCharge request) {
         //포인트 충전
-        PointDetail point=pointService.chargePoint(userId,request.getPoint());
+        PointDetail point=pointService.chargePoint(userId, request);
         return ApiResponse.onSuccess(PointConverter.toPointDetailDTO(point));
     }
 
