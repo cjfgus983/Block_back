@@ -37,7 +37,7 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     //특정 필드를 반환하기 위해 정의된 인터페이스이다. Spring Data JPA는 이 인터페이스를 사용하여 결과를 매핑한다.
     //인터페이스 프로젝션을 통해서 필요한 필드만 조회할 수 있다.
     interface UserSecurityForm {
-        Long getId();
+        Integer getId();
         String getPassword();
     }
 

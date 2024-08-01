@@ -1,6 +1,7 @@
 package com.example.block.security.config;
 
 import com.example.block.global.constants.Constants;
+import com.example.block.security.handler.signout.CustomSignOutProcessHandler;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
