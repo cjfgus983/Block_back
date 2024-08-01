@@ -32,6 +32,9 @@ public enum ErrorStatus implements BaseErrorCode {
     EXIST_EMAIL( HttpStatus.CONFLICT, "EMAIL405", "이미 존재하는 이메일입니다."),
     NOT_FOUND_PASSWORD(HttpStatus.NOT_FOUND,"40405" , "비밀번호가 일치하지 않습니다."),
 
+    //인증 관련
+    NOT_FOUND_END_POINT(HttpStatus.NOT_FOUND, "40400", "존재하지 않는 API 엔드포인트입니다."),
+
 
     CHALLENGER_ALREADY_EXISTS(HttpStatus.BAD_REQUEST, "APPLY400", "이미 지원한 공모전입니다.")
 
