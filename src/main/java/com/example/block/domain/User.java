@@ -96,5 +96,8 @@ public class User extends BaseEntity {
     @OneToMany(mappedBy = "userLiked", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Likes> likedList = new ArrayList<>();
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "profile_image_id", referencedColumnName = "id")
+    private Image profileImage;
 
 }
