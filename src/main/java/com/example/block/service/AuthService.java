@@ -1,21 +1,21 @@
 package com.example.block.service;
 
 import com.example.block.domain.User;
-import com.example.block.dto.JwtTokenDto;
-import com.example.block.dto.SignInRequest;
-import com.example.block.dto.SignUpRequest;
-import com.example.block.dto.UserLoginDto;
+import com.example.block.dto.*;
 import com.example.block.global.apiPayload.code.status.ErrorStatus;
 import com.example.block.global.apiPayload.exception.GeneralException;
 import com.example.block.global.constants.Constants;
 import com.example.block.repository.UserRepository;
 import com.example.block.security.enums.ERole;
+import com.example.block.security.info.UserPrincipal;
 import com.example.block.utillity.JwtUtil;
 import com.example.block.utillity.PasswordEncoder;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -109,4 +109,13 @@ public class AuthService {
 
         return jwtTokenDto;
     }
+
+    public Integer getUserIdFromSecurity() {
+        Object principal =  SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (principal == null) {
+            throw new GeneralException(ErrorStatus.TOKEN_NULL_ERROR);
+        }
+        return ((UserPrincipal) principal).getId();
+    }
+
 }
