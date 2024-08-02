@@ -18,6 +18,7 @@ import java.util.List;
 
 @Entity(name = "User")
 @Getter
+@Setter
 @Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
@@ -39,7 +40,7 @@ public class User extends BaseEntity {
     @Column(name = "password", length = 256)
     private String passWord;
 
-    @Column(name = "nickname", nullable = false)
+    @Column(name = "nickname")
     private String nickname;
 
     @Column(name = "email",unique = true, length = 50)
@@ -116,6 +117,12 @@ public class User extends BaseEntity {
         this.isLogin = true;
         this.isNewUser = true;
         this.nickname = Constants.USER_NICKNAME_PREFIX + serialId;
+    }
+
+    public static User signUp(Long serialId){
+        return User.builder()
+                .serialId(serialId)
+                .build();
     }
 
 
