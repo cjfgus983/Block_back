@@ -32,20 +32,18 @@ public class MyPageController {
     private final ImageService imageService;
 
     @PostMapping(value="/{userId}/myProfileChange",consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    @Operation(summary = "내 프로필 이미지 등록 및 변경")
+    @Operation(summary = "내 프로필 이미지 등록,변경,삭제 -> 선택파일 없으면 기존 프로필 이미지 삭제")
     public ApiResponse<MyPageResponseDTO.changeProfileImageDTO> changeProfileImage(
-            @PathVariable(name="userId") Integer userId, @RequestPart("file") MultipartFile image)
+            @PathVariable(name="userId") Integer userId, @RequestPart(value = "file", required = false) MultipartFile image)
     {
-        //내 프로필 이미지 변경
+        if (image == null || image.isEmpty()) {
+            // 내 프로필 이미지 삭제
+            return ApiResponse.onSuccess(MyPageConverter.toChangeProfileImageDTO(
+                    imageService.deleteProfileImage(userId)));
+        }
+        // 내 프로필 이미지 등록, 변경 -> 새로 들어온 이미지로 변경
         return ApiResponse.onSuccess(MyPageConverter.toChangeProfileImageDTO(
-                imageService.uploadProfileImage(userId,image)));
-    }
-
-    @PostMapping("/{userId}/myProfileDelete")
-    @Operation(summary = "내 프로필 이미지 삭제")
-    public ApiResponse<MyPageResponseDTO.changeProfileImageDTO> deleteProfileImage(@PathVariable(name="userId") Integer userId) {
-        //내 프로필 이미지 삭제
-        return ApiResponse.onSuccess(MyPageConverter.toChangeProfileImageDTO(imageService.deleteProfileImage(userId)));
+                imageService.uploadProfileImage(userId, image)));
     }
 
 

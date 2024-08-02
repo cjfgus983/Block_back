@@ -43,16 +43,28 @@ public class ImageService {
         String imageFileName = uuid + "_" + imageFile.getOriginalFilename();
         Path imageFilePath = Paths.get(uploadFolder + imageFileName);
 
-        //파일 저장
+        //폴더에 이미지 파일 저장
         try {
             Files.write(imageFilePath, imageFile.getBytes());
         }catch (Exception e){
             e.printStackTrace();
             throw new GeneralException(ErrorStatus._PROFILE_IMAGE_UPLOAD_FAIL);
         }
+
         User user= userRepository.findById(userId).orElseThrow(
                 ()-> new GeneralException(ErrorStatus._USER_NOT_FOUND)
         );
+
+        //기존 이미지가 있었다면 해당 이미지는 폴더에서 삭제
+        String oldImageFileName = user.getImageUrl();
+        if(oldImageFileName != null && !oldImageFileName.isEmpty()){
+            Path oldImageFilePath = Paths.get(uploadFolder + oldImageFileName);
+            try {
+                Files.deleteIfExists(oldImageFilePath);
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+        }
 
         userRepository.updateProfileImageUrl(userId,imageFileName);
         return imageFileName;
