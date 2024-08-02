@@ -29,7 +29,6 @@ public class Constants {
             "/api/v1/auth/**",
             "/oauth2/**",
             "/login/oauth2/**",
-            //하.. 이것도 넣어야 되나...
             "/favicon.ico"
     );
 }

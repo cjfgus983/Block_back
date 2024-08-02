@@ -1,10 +1,7 @@
 package com.example.block.controller;
 
 import com.example.block.ApiResponse;
-import com.example.block.dto.JwtTokenDto;
-import com.example.block.dto.SignInRequest;
-import com.example.block.dto.SignUpRequest;
-import com.example.block.dto.UserLoginDto;
+import com.example.block.dto.*;
 import com.example.block.global.constants.Constants;
 import com.example.block.service.AuthService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -30,6 +27,14 @@ public class AuthController {
     @Schema(name = "login", description = "로그인")
     public ApiResponse<?> login(@RequestBody UserLoginDto userloginDto) {
         return ApiResponse.onSuccess(authService.login(userloginDto));
+    }
+
+    @Operation(summary = "카카오 로그인", description = "카카오 로그인 handler의 콜백 메서드이다.")
+    @GetMapping("/oauth2/kakao")
+    public ApiResponse<KakaoLoginResponse> loginKakao(@RequestParam(name = "accessToken") String accessToken,
+                                                         @RequestParam(name = "refreshToken") String refreshToken, @RequestParam(name = "providerId") Long providerId) {
+
+        return ApiResponse.onSuccess(KakaoLoginResponse.of(accessToken,refreshToken,providerId));
     }
 
     @Operation(

@@ -1,6 +1,9 @@
 package com.example.block.security.config;
 
 import com.example.block.global.constants.Constants;
+import com.example.block.oauth.handler.OAuth2AuthenticationSuccessHandler;
+import com.example.block.oauth.handler.OAuth2FailureHandler;
+import com.example.block.oauth.service.KakaoMemberDetailService;
 import com.example.block.security.filter.GlobalLoggerFilter;
 import com.example.block.security.filter.JwtAuthenticationFilter;
 import com.example.block.security.filter.JwtExceptionFilter;
@@ -37,9 +40,9 @@ public class SecurityConfig {
     private final JwtAuthEntryPoint jwtAuthEntryPoint;
     private final CustomUserDetailService customUserDetailService;
     private final JwtUtil jwtUtil;
-    /*private final KakaoMemberDetailService KakaoMemberDetailService;
+    private final KakaoMemberDetailService KakaoMemberDetailService;
     private final OAuth2AuthenticationSuccessHandler oAuth2AuthenticationSuccessHandler;
-    private final OAuth2FailureHandler oAuth2FailureHandler;*/
+    private final OAuth2FailureHandler oAuth2FailureHandler;
 
     @Bean
     protected SecurityFilterChain securityFilterChain(final HttpSecurity httpSecurity) throws Exception {
@@ -68,14 +71,14 @@ public class SecurityConfig {
                         configurer
                                 .authenticationEntryPoint(jwtAuthEntryPoint)
                 )
-                /*.oauth2Login(oAuth2Login ->{
+                .oauth2Login(oAuth2Login ->{
                     oAuth2Login.userInfoEndpoint(userInfoEndpointConfig ->
                             userInfoEndpointConfig.userService(KakaoMemberDetailService)
                     );
                     oAuth2Login
                             .successHandler(oAuth2AuthenticationSuccessHandler)
                             .failureHandler(oAuth2FailureHandler);
-                })*/
+                })
 
                 .addFilterBefore(
                         new JwtAuthenticationFilter(jwtUtil, customUserDetailService),
