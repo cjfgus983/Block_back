@@ -17,5 +17,7 @@ public class MyPageResponseDTO {
         String university;
         String major;
         ApplyPart applyPart;
+        String contestTitle;
+//        String profileImageUrl;
     }
 }
