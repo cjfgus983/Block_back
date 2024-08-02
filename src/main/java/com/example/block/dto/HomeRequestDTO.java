@@ -14,9 +14,8 @@ public class HomeRequestDTO {
     @AllArgsConstructor
     public static class HomePageRequestDTO {
         private String userName;
-
+        private String userImageUrl;
         private List<HomeContestDTO> contestList;
-
     }
 
     @Builder
@@ -28,8 +27,7 @@ public class HomeRequestDTO {
         private Integer contestId;
         private String contestName;
         private String contestHost;
-
         private String contestCategory;
-        private String contestImage;
+        private String contestImageUrl;
     }
 }

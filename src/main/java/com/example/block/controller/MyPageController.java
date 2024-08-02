@@ -81,10 +81,6 @@ public class MyPageController {
         // 마이 페이지 메인 화면 데이터 조회
         MyPageResponseDTO.myPageDTO user = myPageService.getMyPageUser(userId);
 
-        // 카카오 로그인 시 카카오 페이지로 리다이렉트
-//        if (user.getLoginType() == LoginType.Kakao) {
-//            return (new RedirectView("/mypage/{userId}/kakao"));
-//        }
         return ApiResponse.onSuccess(user);
     }
 
@@ -102,12 +98,10 @@ public class MyPageController {
     @PostMapping("{userId}/edit")
     @Operation(summary = "마이 페이지_내 정보 수정 완료")
     // 수정된 정보를 확인하기 위해 User를 반환함
-    public String editMyPageComplete(@RequestParam(name = "userId") Integer userId,
+    public void editMyPageComplete(@RequestParam(name = "userId") Integer userId,
                                                 @RequestBody MyPageResponseDTO.myPageEditDataDTO updatedUser) {
         // 수정된 정보를 저장하고
         myPageService.updateUser(userId, updatedUser);
-        // 메인 화면으로 리다이렉트
-        return "redirect:/"; // "/"로 리다이렉트
     }
 
     // 마이페이지 옵션 내 저장한 공모전, 후기 조회

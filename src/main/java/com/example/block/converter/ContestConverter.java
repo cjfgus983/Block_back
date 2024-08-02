@@ -15,7 +15,7 @@ public class ContestConverter {
                 .contestId(contest.getId())
                 .contestName(contest.getTitle())
                 .contestImage(contest.getImageUrl())
-//                .contestCategory(contest.getCategory())
+                .contestCategory(contest.getContestCategory())
                 .startDate(contest.getStartDate().toString())
                 .endDate(contest.getEndDate().toString())
                 .build();

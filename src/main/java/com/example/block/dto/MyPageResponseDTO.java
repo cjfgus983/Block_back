@@ -1,6 +1,7 @@
 package com.example.block.dto;
 
 import com.example.block.domain.enums.ApplyPart;
+import com.example.block.domain.enums.ContestCategory;
 import com.example.block.domain.enums.ContestType;
 import com.example.block.domain.enums.LoginType;
 import jakarta.persistence.GeneratedValue;
@@ -36,7 +37,7 @@ public class MyPageResponseDTO {
         String imageUrl;
         String university;
         String major;
-        String category; // 추후 추가
+        ContestCategory category; // 추후 추가
         LoginType loginType;
     }
 
@@ -54,7 +55,7 @@ public class MyPageResponseDTO {
         String  university;
         String  univMajor;
         String  portfolio;
-        String  category; // 추후 추가
+        ContestCategory  category; // 추후 추가
     }
 
     // 공모전 목록 조회에서 사용

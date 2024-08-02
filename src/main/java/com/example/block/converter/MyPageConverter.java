@@ -28,8 +28,8 @@ public class MyPageConverter {
                 .imageUrl(user.getImageUrl())
                 .university(user.getUniversity())
                 .major(user.getUnivMajor())
-//                .category(user.getCategory()) // Category Enum 추가 후 주석 해제
-//                .loginType(user.getLoginType()) // LoginType Enum 추가 후 주석 해제
+                .category(user.getInterestCategory())
+                .loginType(user.getLoginType())
                 .build();
     }
 
@@ -43,7 +43,7 @@ public class MyPageConverter {
                 .university(user.getUniversity())
                 .univMajor(user.getUnivMajor())
                 .portfolio(user.getPortfolio())
-//                .category(user.getCategory()) // Category Enum 추가 후 주석 해제
+                .category(user.getInterestCategory())
                 .build();
     }
 
@@ -52,7 +52,7 @@ public class MyPageConverter {
                 .id(contest.getId())
                 .imageUrl(contest.getImageUrl())
                 .applyUrl(contest.getApplyUrl())
-//                .status(contest.getStatus()) // ContestType Enum 추가 후 주석 해제
+                .status(contest.getContestType())
                 .build();
     }
 }
