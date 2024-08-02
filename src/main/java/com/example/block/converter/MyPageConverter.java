@@ -1,5 +1,6 @@
 package com.example.block.converter;
 
+import com.example.block.domain.User;
 import com.example.block.domain.mapping.Applicant;
 import com.example.block.dto.MyPageResponseDTO;
 
@@ -18,5 +19,11 @@ public class MyPageConverter {
                         .contestTitle(applicant.getContest().getTitle())
                         .build()
                 ).collect(Collectors.toList());
+    }
+
+    public static MyPageResponseDTO.changeProfileImageDTO toChangeProfileImageDTO(String fileName){
+        return MyPageResponseDTO.changeProfileImageDTO.builder()
+                .profileImageName(fileName)
+                .build();
     }
 }

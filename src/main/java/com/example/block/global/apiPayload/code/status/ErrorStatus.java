@@ -30,8 +30,10 @@ public enum ErrorStatus implements BaseErrorCode {
     //유저 관련
     _USER_NOT_FOUND(HttpStatus.NOT_FOUND,"USER404","유저가 존재하지 않습니다."),
 
-    CHALLENGER_ALREADY_EXISTS(HttpStatus.BAD_REQUEST, "APPLY400", "이미 지원한 공모전입니다.")
+    CHALLENGER_ALREADY_EXISTS(HttpStatus.BAD_REQUEST, "APPLY400", "이미 지원한 공모전입니다."),
 
+    _PROFILE_IMAGE_NOT_FOUND(HttpStatus.NOT_FOUND,"IMAGE404","프로필 이미지가 존재하지 않습니다."),
+    _PROFILE_IMAGE_UPLOAD_FAIL(HttpStatus.BAD_REQUEST,"IMAGE400","프로필 이미지 업로드에 실패하였습니다."),
     ;
 
     private final HttpStatus httpStatus;

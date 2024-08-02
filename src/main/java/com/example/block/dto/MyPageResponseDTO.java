@@ -6,6 +6,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
+
 public class MyPageResponseDTO {
 
     @Builder
@@ -20,4 +22,13 @@ public class MyPageResponseDTO {
         String contestTitle;
 //        String profileImageUrl;
     }
+
+    @Builder
+    @Getter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class changeProfileImageDTO {
+        String profileImageName;
+    }
+
 }

@@ -9,11 +9,16 @@ import com.example.block.domain.mapping.Applicant;
 import com.example.block.dto.MyPageResponseDTO;
 import com.example.block.dto.PointRequestDTO;
 import com.example.block.dto.PointResponseDTO;
+import com.example.block.service.ImageService;
 import com.example.block.service.MyPageService;
 import com.example.block.service.PointService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.Content;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -24,6 +29,25 @@ import java.util.List;
 public class MyPageController {
     private final PointService pointService;
     private final MyPageService myPageService;
+    private final ImageService imageService;
+
+    @PostMapping(value="/{userId}/myProfileChange",consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    @Operation(summary = "내 프로필 이미지 등록 및 변경")
+    public ApiResponse<MyPageResponseDTO.changeProfileImageDTO> changeProfileImage(
+            @PathVariable(name="userId") Integer userId, @RequestPart("file") MultipartFile image)
+    {
+        //내 프로필 이미지 변경
+        return ApiResponse.onSuccess(MyPageConverter.toChangeProfileImageDTO(
+                imageService.uploadProfileImage(userId,image)));
+    }
+
+    @PostMapping("/{userId}/myProfileDelete")
+    @Operation(summary = "내 프로필 이미지 삭제")
+    public ApiResponse<MyPageResponseDTO.changeProfileImageDTO> deleteProfileImage(@PathVariable(name="userId") Integer userId) {
+        //내 프로필 이미지 삭제
+        return ApiResponse.onSuccess(MyPageConverter.toChangeProfileImageDTO(imageService.deleteProfileImage(userId)));
+    }
+
 
     @GetMapping("/{userId}/point")
     @Operation(summary = "내 포인트 조회")
