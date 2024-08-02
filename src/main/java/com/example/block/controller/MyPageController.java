@@ -9,6 +9,7 @@ import com.example.block.domain.mapping.Applicant;
 import com.example.block.dto.MyPageResponseDTO;
 import com.example.block.dto.PointRequestDTO;
 import com.example.block.dto.PointResponseDTO;
+import com.example.block.service.AuthService;
 import com.example.block.service.MyPageService;
 import com.example.block.service.PointService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -24,12 +25,13 @@ import java.util.List;
 public class MyPageController {
     private final PointService pointService;
     private final MyPageService myPageService;
+    private final AuthService authService;
 
-    @GetMapping("/{userId}/point")
+    @GetMapping("/point")
     @Operation(summary = "내 포인트 조회")
-    public ApiResponse<PointResponseDTO.GetMyPointDTO> getPoint(@PathVariable(name="userId") Integer userId) {
+    public ApiResponse<PointResponseDTO.GetMyPointDTO> getPoint() {
         //내 포인트 조회
-        return ApiResponse.onSuccess(PointConverter.toPointDTO(pointService.getMyPoint(userId)));
+        return ApiResponse.onSuccess(PointConverter.toPointDTO(pointService.getMyPoint(authService.getUserIdFromSecurity())));
     }
 
     @GetMapping("/{userId}/pointDetail")
