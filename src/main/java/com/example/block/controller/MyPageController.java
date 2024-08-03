@@ -10,6 +10,7 @@ import com.example.block.dto.MyPageResponseDTO;
 import com.example.block.dto.PointRequestDTO;
 import com.example.block.dto.PointResponseDTO;
 import com.example.block.service.ImageService;
+import com.example.block.service.AuthService;
 import com.example.block.service.MyPageService;
 import com.example.block.service.PointService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -30,11 +31,11 @@ public class MyPageController {
     private final PointService pointService;
     private final MyPageService myPageService;
     private final ImageService imageService;
+    private final AuthService authService;
 
     @PostMapping(value="/{userId}/myProfileChange",consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     @Operation(summary = "내 프로필 이미지 등록,변경,삭제",
             description = "선택파일이 없으면 기존 프로필 이미지를 삭제합니다. 선택파일이 없을 경우 Send empty value 체크해제하고 테스트해주세요. swagger 기본스펙이라 수정이 안됨..")
-
     public ApiResponse<MyPageResponseDTO.changeProfileImageDTO> changeProfileImage(
             @PathVariable(name="userId") Integer userId, @RequestPart(value = "file", required = false) MultipartFile image)
     {
@@ -48,12 +49,11 @@ public class MyPageController {
                 imageService.uploadProfileImage(userId, image)));
     }
 
-
-    @GetMapping("/{userId}/point")
+    @GetMapping("/point")
     @Operation(summary = "내 포인트 조회")
-    public ApiResponse<PointResponseDTO.GetMyPointDTO> getPoint(@PathVariable(name="userId") Integer userId) {
+    public ApiResponse<PointResponseDTO.GetMyPointDTO> getPoint() {
         //내 포인트 조회
-        return ApiResponse.onSuccess(PointConverter.toPointDTO(pointService.getMyPoint(userId)));
+        return ApiResponse.onSuccess(PointConverter.toPointDTO(pointService.getMyPoint(authService.getUserIdFromSecurity())));
     }
 
     @GetMapping("/{userId}/pointDetail")

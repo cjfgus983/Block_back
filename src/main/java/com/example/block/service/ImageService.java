@@ -48,7 +48,7 @@ public class ImageService {
             Files.write(imageFilePath, imageFile.getBytes());
         }catch (Exception e){
             e.printStackTrace();
-            throw new GeneralException(ErrorStatus._PROFILE_IMAGE_UPLOAD_FAIL);
+            throw new GeneralException(ErrorStatus.PROFILE_IMAGE_UPLOAD_FAIL);
         }
 
         User user= userRepository.findById(userId).orElseThrow(
@@ -86,7 +86,7 @@ public class ImageService {
             userRepository.updateProfileImageUrl(userId, null);
         }
         else
-            throw new GeneralException(ErrorStatus._PROFILE_IMAGE_NOT_FOUND);
+            throw new GeneralException(ErrorStatus.PROFILE_IMAGE_NOT_FOUND);
 
         return "프로필 사진 삭제";
     }

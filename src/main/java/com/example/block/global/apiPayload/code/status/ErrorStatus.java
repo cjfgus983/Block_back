@@ -29,12 +29,30 @@ public enum ErrorStatus implements BaseErrorCode {
     _REVIEW_NOT_FOUND(HttpStatus.NOT_FOUND,"REVIEW404","리뷰가 존재하지 않습니다."),
     //유저 관련
     _USER_NOT_FOUND(HttpStatus.NOT_FOUND,"USER404","유저가 존재하지 않습니다."),
+    EXIST_EMAIL( HttpStatus.CONFLICT, "EMAIL405", "이미 존재하는 이메일입니다."),
+    NOT_FOUND_PASSWORD(HttpStatus.NOT_FOUND,"40405" , "비밀번호가 일치하지 않습니다."),
+
+    //인증 관련
+    NOT_FOUND_END_POINT(HttpStatus.NOT_FOUND, "40400", "존재하지 않는 API 엔드포인트입니다."),
+    NOT_FOUND_LOGIN_USER( HttpStatus.NOT_FOUND,"40401", "로그인한 사용자가 존재하지 않습니다."),
+    INVALID_HEADER_ERROR(HttpStatus.BAD_REQUEST, "40003" ,"유효하지 않은 헤더입니다."),
+    ACCESS_DENIED(HttpStatus.FORBIDDEN,"40300", "접근 권한이 없습니다."),
+    FAILURE_LOGIN( HttpStatus.UNAUTHORIZED,"40100", "잘못된 아이디 또는 비밀번호입니다."),
+    EXPIRED_TOKEN_ERROR( HttpStatus.UNAUTHORIZED,"40101", "만료된 토큰입니다."),
+    INVALID_TOKEN_ERROR( HttpStatus.UNAUTHORIZED,"40102", "유효하지 않은 토큰입니다."),
+    TOKEN_MALFORMED_ERROR( HttpStatus.UNAUTHORIZED,"40103", "토큰이 올바르지 않습니다."),
+    TOKEN_TYPE_ERROR( HttpStatus.UNAUTHORIZED,"40104", "토큰 타입이 일치하지 않거나 비어있습니다."),
+    TOKEN_UNSUPPORTED_ERROR( HttpStatus.UNAUTHORIZED,"40105", "지원하지않는 토큰입니다."),
+    TOKEN_GENERATION_ERROR( HttpStatus.UNAUTHORIZED,"40106", "토큰 생성에 실패하였습니다."),
+    TOKEN_UNKNOWN_ERROR( HttpStatus.UNAUTHORIZED,"40107", "알 수 없는 토큰입니다."),
+    TOKEN_NULL_ERROR( HttpStatus.UNAUTHORIZED,"40108", "토큰이 존재하지 않습니다."),
 
     CHALLENGER_ALREADY_EXISTS(HttpStatus.BAD_REQUEST, "APPLY400", "이미 지원한 공모전입니다."),
 
-    _PROFILE_IMAGE_NOT_FOUND(HttpStatus.NOT_FOUND,"IMAGE404","프로필 이미지가 존재하지 않습니다."),
-    _PROFILE_IMAGE_UPLOAD_FAIL(HttpStatus.BAD_REQUEST,"IMAGE400","프로필 이미지 업로드에 실패하였습니다."),
+    PROFILE_IMAGE_NOT_FOUND(HttpStatus.NOT_FOUND,"IMAGE404","프로필 이미지가 존재하지 않습니다."),
+    PROFILE_IMAGE_UPLOAD_FAIL(HttpStatus.BAD_REQUEST,"IMAGE400","프로필 이미지 업로드에 실패하였습니다."),
     ;
+
 
     private final HttpStatus httpStatus;
     private final String code;
