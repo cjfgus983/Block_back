@@ -7,6 +7,7 @@ import com.example.block.domain.mapping.Likes;
 import com.example.block.domain.mapping.TransactionReview;
 
 
+import com.example.block.dto.SignUpRequest;
 import com.example.block.global.constants.Constants;
 import jakarta.persistence.*;
 import lombok.*;
@@ -54,7 +55,7 @@ public class User extends BaseEntity {
     @Column(nullable = true, length = 1023)
     private String imageUrl;
 
-    @Column(nullable = true, length = 8)
+    @Column(nullable = true, length = 25)
     private String birthDay;
 
     @Column(nullable = true, length = 10)
@@ -63,7 +64,7 @@ public class User extends BaseEntity {
     @Column(nullable = true, length = 30)
     private String address;
 
-    @Column(nullable = true, length = 11)
+    @Column(nullable = true, length = 25)
     private String phoneNumber;
 
     @Column(nullable = true, length = 25)
@@ -131,6 +132,22 @@ public class User extends BaseEntity {
     public static User signUp(Long serialId){
         return User.builder()
                 .serialId(serialId)
+                .build();
+    }
+
+    public static User signUpByRequest(SignUpRequest request) {
+        return User.builder()
+                .serialId(request.getProviderId())
+                .email(request.getEmail())
+                .passWord(request.getPassword())
+                .name(request.getName())
+                .phoneNumber(request.getPhoneNumber())
+                .university(request.getUniversity())
+                .birthDay(request.getBirthDay())
+                .univMajor(request.getUnivMajor())
+                .portfolio(request.getPortfolio())
+                .point(0L)
+                .isLogin(true)
                 .build();
     }
 
