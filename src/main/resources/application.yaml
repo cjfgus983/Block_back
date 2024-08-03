@@ -23,5 +23,5 @@ spring:
           auto: update
 
   profiles:
-    include: API-KEY
+    include: API-KEY, secret
 

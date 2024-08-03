@@ -47,7 +47,7 @@ public class MyPageResponseDTO {
     @NoArgsConstructor
     @AllArgsConstructor
     public static class myPageEditDataDTO {
-        Integer userId;
+        String userId;
         String  passWord;
         String  birthDay;
         String  phoneNumber;

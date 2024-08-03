@@ -7,10 +7,9 @@ import com.example.block.repository.ContestRepository;
 import com.example.block.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -24,8 +23,8 @@ public class HomePageService {
 
     public HomeRequestDTO.HomePageRequestDTO getHomePageRequestDTO(Integer userId) {
         List<HomeRequestDTO.HomeContestDTO> contestList = getAllContestList();
-        User user = userRepository.findByUserId(userId);
-        HomeRequestDTO.HomePageRequestDTO homePageRequestDTO = HomeRequestConverter.toHomePageRequestDTO(contestList, user);
+        Optional<User> user = userRepository.findById(userId);
+        HomeRequestDTO.HomePageRequestDTO homePageRequestDTO = HomeRequestConverter.toHomePageRequestDTO(contestList, user.orElse(null));
         return homePageRequestDTO;
     }
 }

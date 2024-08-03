@@ -19,8 +19,8 @@ public class HomeController {
 
     @GetMapping("/")
     @Operation(summary = "홈 화면")
-    public ApiResponse<HomeRequestDTO.HomePageRequestDTO> home(@RequestParam Integer userId) {
-        HomeRequestDTO.HomePageRequestDTO homePageRequestDTO = homePageService.getHomePageRequestDTO(userId);
+    public ApiResponse<HomeRequestDTO.HomePageRequestDTO> home(@RequestParam Integer id) {
+        HomeRequestDTO.HomePageRequestDTO homePageRequestDTO = homePageService.getHomePageRequestDTO(id);
         return ApiResponse.onSuccess(homePageRequestDTO);
     }
 }
