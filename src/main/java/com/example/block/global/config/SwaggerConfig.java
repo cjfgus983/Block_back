@@ -25,10 +25,10 @@ import java.util.Collections;
 public class SwaggerConfig {
     private final SecurityScheme securityScheme = new SecurityScheme()
             .type(SecurityScheme.Type.HTTP)
-            .scheme("bearer")
-            .bearerFormat("JWT")
             .in(SecurityScheme.In.HEADER)
-            .name("Authorization");
+            .name("Authorization")
+            .scheme("bearer")
+            .bearerFormat("JWT");
 
     {
         SpringDocUtils.getConfig().replaceWithSchema(Color.class,
@@ -60,16 +60,25 @@ public class SwaggerConfig {
     public OpenAPI openApi() {
         String description = "Block 백엔드 API 개발 문서 ";
         String securityRequirementName = "bearerAuth";
+
+        // 파일 업로드를 위한 스웨거 정의 추가
+        Schema fileSchema = new Schema();
+        fileSchema.setType("string");
+        fileSchema.setFormat("binary");
+
         return new OpenAPI()
                 .servers(Collections.singletonList(new Server().url("/")))
                 .security(Collections.singletonList(new SecurityRequirement().addList(securityRequirementName)))
-                .components(new Components().addSecuritySchemes(securityRequirementName, securityScheme))
+                .components(new Components()
+                        .addSecuritySchemes(securityRequirementName,
+                                securityScheme)
+                        .addSchemas("file", fileSchema)) //파일 스키마 추가
                 .info(new Info()
-                        .title(" Blcok API")
+                        .title("API")
                         .description(description)
                         .version("0.0.1")
                 )
-                .externalDocs(new ExternalDocumentation().description("Block API"));
+                .externalDocs(new ExternalDocumentation().description("review small project API"));
     }
 
 }
