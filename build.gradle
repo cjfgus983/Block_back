@@ -21,6 +21,7 @@ configurations {
 
 repositories {
 	mavenCentral()
+	maven{url 'https://jitpack.io'}
 }
 
 dependencies {
@@ -60,6 +61,9 @@ dependencies {
 
 	// Test
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+	//univcert
+	implementation 'com.github.in-seo:univcert:master-SNAPSHOT'
 }
 
 tasks.named('test') {
