@@ -2,6 +2,7 @@ package com.example.block.domain;
 
 import com.example.block.domain.common.BaseEntity;
 import com.example.block.domain.enums.LoginType;
+import com.example.block.domain.mapping.Likes;
 import com.example.block.domain.mapping.TransactionReview;
 
 
@@ -79,7 +80,6 @@ public class User extends BaseEntity {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<PointDetail> pointDetailList=new ArrayList<>();
 
-
     public void setId(Integer id) {
         this.id = id;
     }
@@ -87,7 +87,6 @@ public class User extends BaseEntity {
     public Integer getId() {
         return id;
     }
-
 
     @OneToMany(mappedBy = "userLiker", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Likes> likerList = new ArrayList<>();
