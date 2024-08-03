@@ -1,6 +1,9 @@
 package com.example.block.controller;
 
 
+import com.example.block.ApiResponse;
+import com.example.block.converter.PointConverter;
+import com.example.block.dto.PointResponseDTO;
 import com.example.block.global.apiPayload.code.status.ErrorStatus;
 import com.example.block.global.apiPayload.exception.GeneralException;
 import com.example.block.dto.KakaoPayRequestDTO;
@@ -21,6 +24,13 @@ import org.springframework.web.bind.annotation.*;
 public class PayController {
     private final PointService pointService;
     private final KakaoPayService kakaoPayService;
+
+    @GetMapping("/{userId}/ready")
+    @Operation(summary = "결제창에서 잔여 포인트 표시")
+    public ApiResponse<PointResponseDTO.GetMyPointDTO> getPoint(@PathVariable(name="userId") Integer userId) {
+        //내 포인트 조회
+        return ApiResponse.onSuccess(PointConverter.toPointDTO(pointService.getMyPoint(userId)));
+    }
 
     @PostMapping("/ready")
     @Operation(summary = "리뷰 결제 요청")

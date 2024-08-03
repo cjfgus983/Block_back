@@ -32,7 +32,9 @@ public class MyPageController {
     private final ImageService imageService;
 
     @PostMapping(value="/{userId}/myProfileChange",consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    @Operation(summary = "내 프로필 이미지 등록,변경,삭제 -> 선택파일 없으면 기존 프로필 이미지 삭제")
+    @Operation(summary = "내 프로필 이미지 등록,변경,삭제",
+            description = "선택파일이 없으면 기존 프로필 이미지를 삭제합니다. 선택파일이 없을 경우 Send empty value 체크해제하고 테스트해주세요. swagger 기본스펙이라 수정이 안됨..")
+
     public ApiResponse<MyPageResponseDTO.changeProfileImageDTO> changeProfileImage(
             @PathVariable(name="userId") Integer userId, @RequestPart(value = "file", required = false) MultipartFile image)
     {

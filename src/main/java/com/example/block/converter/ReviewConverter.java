@@ -11,7 +11,7 @@ public class ReviewConverter {
         return ReviewResponseDTO.GetReviewDetailDTO.builder()
                 .score(review.getScore())
                 .content(review.getContent())
-                .createdAt(review.getCreated_at())
+                .writer(review.getUser().getName())
                 .build();
 
     }

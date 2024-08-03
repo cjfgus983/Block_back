@@ -14,9 +14,8 @@ public class ReviewResponseDTO {
     @AllArgsConstructor
     public static class GetReviewDetailDTO{
         //리뷰 상세 조회 응답 정보
+        private String writer;
         private String content;
         private Float score;
-        private LocalDateTime createdAt;
-
     }
 }
