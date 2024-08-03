@@ -50,6 +50,14 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
 	implementation 'org.springframework.boot:spring-boot-starter-security'
 
+	// Webflux
+	implementation 'org.springframework.boot:spring-boot-starter-webflux'
+
+	// Jakarta Bean Validation
+	implementation 'org.hibernate.validator:hibernate-validator:7.0.1.Final'
+	implementation 'jakarta.validation:jakarta.validation-api:3.0.2'
+	implementation 'org.glassfish:jakarta.el:4.0.2'
+
 	// Test
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }

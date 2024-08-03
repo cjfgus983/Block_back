@@ -15,5 +15,15 @@ public class ErrorReasonDTO {
     private String code;
     private boolean isSuccess;
     private HttpStatus httpStatus;
+
+    @Override
+    public String toString() {
+        return "ErrorReasonDTO{" +
+                "message='" + message + '\'' +
+                ", code='" + code + '\'' +
+                ", isSuccess=" + isSuccess +
+                ", httpStatus=" + httpStatus +
+                '}';
+    }
 //
 }

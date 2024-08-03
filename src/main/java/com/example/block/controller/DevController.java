@@ -1,5 +1,6 @@
 package com.example.block.controller;
 
+import com.example.block.service.AuthService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -15,12 +16,13 @@ import org.springframework.web.bind.annotation.RestController;
 @Tag(name = "개발 전용", description = "test API")
 public class DevController {
 
+    private final AuthService authService;
     @Operation(
             summary = "Ping 테스트",
             responses = @ApiResponse(responseCode = "200", description = "pong을 반환합니다.")
     )
     @GetMapping("ping")
-    public ResponseEntity<String> ping() {
-        return ResponseEntity.ok("pong");
+    public ResponseEntity<?> ping() {
+        return ResponseEntity.ok("pong" + authService.getUserIdFromSecurity());
     }
 }
