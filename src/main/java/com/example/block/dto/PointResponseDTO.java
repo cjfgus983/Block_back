@@ -1,6 +1,7 @@
 package com.example.block.dto;
 
 import com.example.block.domain.enums.PointType;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 
 import java.time.LocalDateTime;
@@ -22,10 +23,11 @@ public class PointResponseDTO {
     @AllArgsConstructor
     public static class GetMyPointDetailDTO{
         //내 포인트 상세 내역 조회 응답 정보(개별)
-        private Long amount;
-        private PointType type;
-        private String reason;
-        private LocalDateTime createdAt;
+        Long amount;
+        PointType type;
+        String reason;
+        @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Seoul")
+        LocalDateTime createdAt;
     }
 
     @Builder

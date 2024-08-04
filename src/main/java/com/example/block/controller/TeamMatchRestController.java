@@ -1,12 +1,20 @@
 package com.example.block.controller;
 
 import com.example.block.ApiResponse;
+import com.example.block.converter.ReviewConverter;
 import com.example.block.converter.TeamMatchConverter;
 import com.example.block.domain.User;
 import com.example.block.domain.mapping.Applicant;
+import com.example.block.domain.mapping.Review;
+import com.example.block.dto.ReviewResponseDTO;
 import com.example.block.dto.TeamMatchRequestDTO;
 import com.example.block.dto.TeamMatchResponseDTO;
+import com.example.block.service.AuthService;
+import com.example.block.service.ReviewService;
 import com.example.block.service.TeamMatchService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.Parameters;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,6 +26,8 @@ import java.util.List;
 public class TeamMatchRestController {
 
     private final TeamMatchService teamMatchService;
+    private final ReviewService reviewService;
+    private final AuthService authService;
 
     //  토큰 구현되면 userId를 토큰 정보로 대체
     @PostMapping("/apply")
@@ -58,4 +68,16 @@ public class TeamMatchRestController {
         List<User> memberList = teamMatchService.getMemberList(contestId, userId);
         return ApiResponse.onSuccess(TeamMatchConverter.toMemberResultDTO(memberList));
     }
+
+    //  구매한 리뷰 상세 출력
+    @GetMapping("/reviews/{reviewId}")
+    @Operation(summary = "리뷰 상세 조회")
+    public ApiResponse<ReviewResponseDTO.GetReviewDetailDTO> getReviewDetail(@PathVariable Integer contestId,
+                                                                             @PathVariable Integer reviewId)
+    {
+        //리뷰 상세 조회
+        Review review = reviewService.getReviewDetail(authService.getUserIdFromSecurity(), reviewId, contestId);
+        return ApiResponse.onSuccess(ReviewConverter.toReviewDetailDTO(review));
+    }
+
 }
