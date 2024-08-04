@@ -1,13 +1,17 @@
 package com.example.block.service;
 
+import com.example.block.converter.MyPageConverter;
+import com.example.block.domain.MyContest;
+import com.example.block.domain.User;
 import com.example.block.domain.mapping.Applicant;
 import com.example.block.domain.mapping.Likes;
-import com.example.block.repository.ApplicantRepository;
-import com.example.block.repository.LikesRepository;
+import com.example.block.dto.MyPageResponseDTO;
+import com.example.block.repository.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -16,6 +20,8 @@ public class MyPageService {
 
     private final LikesRepository likesRepository;
     private final ApplicantRepository applicantRepository;
+    private final UserRepository userRepository;
+    private final MyContestRepository mycontestRepository;
 
     public Applicant getChallenger(Integer contestId, Integer userId){
         return applicantRepository.findByContestIdAndUserId(contestId, userId).get();
@@ -38,4 +44,35 @@ public class MyPageService {
                 .map(like -> getChallenger(like.getContest().getId(), like.getUserLiker().getId()))
                 .collect(Collectors.toList());
     }
+
+    // 마이페이지를 띄워줄 유저 정보
+    public MyPageResponseDTO.myPageDTO getMyPageUser(Integer userId){
+        Optional<User> user = userRepository.findById(userId);
+        return MyPageConverter.toMyPageDTO(user.orElse(null));
+    }
+
+    // 마이페이지를 띄워줄 유저 정보 수정
+    public MyPageResponseDTO.myPageEditDataDTO updateUser(Integer userId, MyPageResponseDTO.myPageEditDataDTO updatedUser) {
+        Optional<User> user = userRepository.findById(userId);
+        user.get().setUserId(updatedUser.getUserId());
+        user.get().setPassWord(updatedUser.getPassWord());
+        user.get().setBirthDay(updatedUser.getBirthDay());
+        user.get().setPhoneNumber(updatedUser.getPhoneNumber());
+        user.get().setAddress(updatedUser.getAddress());
+        user.get().setUniversity(updatedUser.getUniversity());
+        user.get().setUnivMajor(updatedUser.getUnivMajor());
+        user.get().setPortfolio(updatedUser.getPortfolio());
+        user.get().setInterestCategory(updatedUser.getCategory());
+        userRepository.save(user.get());
+        return MyPageConverter.toMyPageEditDataDTO(user.orElse(null));
+    }
+
+    // 저장한 공모전을 모두 조회
+    public List<MyPageResponseDTO.contestDTO> getMyContestList(Integer userId){
+        List<MyContest> myContestList = mycontestRepository.findByUserId(userId);
+        return myContestList.stream()
+                .map(contest -> MyPageConverter.toMyContestDTO(contest.getContest()))
+                .collect(Collectors.toList());
+    }
+
 }

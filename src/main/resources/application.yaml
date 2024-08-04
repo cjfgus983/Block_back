@@ -6,7 +6,7 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/block
     username: root
-    password: #MySQL password
+    password: kjm950730@ #MySQL password
 
 
   sql:
@@ -23,5 +23,5 @@ spring:
           auto: update
 
   profiles:
-    include: API-KEY
+    include: API-KEY, secret
 
