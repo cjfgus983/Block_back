@@ -13,6 +13,8 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class RatingService {
@@ -23,7 +25,7 @@ public class RatingService {
     private final ContestRepository contestRepository;
 
     @Transactional
-    public void rateUser(Integer raterId, Integer ratedId, Integer contestId, Float score){
+    public void rateUser(Integer raterId, Integer ratedId, Integer contestId, double score){
 
         User rater = userRepository.findById(raterId).get();
         User rated = userRepository.findById(ratedId).get();
@@ -47,5 +49,28 @@ public class RatingService {
                 .build();
 
         ratingRepository.save(rating);
+
+        updateAverageRating(rated, score);
+    }
+
+    @Transactional
+    public void updateAverageRating(User rated, double newScore){
+
+        List<Rating> ratings = ratingRepository.findByRated(rated);
+
+        if(ratings.size() == 1){
+            rated.setScore(newScore);
+        } else {
+            double averageRating = ratings.stream().mapToDouble(Rating::getScore).average().orElse(newScore);
+            rated.setScore(averageRating);
+        }
+
+        userRepository.save(rated);
+    }
+
+    public double getAverageRating(Integer userId){
+
+        User rated = userRepository.findById(userId).get();
+        return rated.getScore();
     }
 }

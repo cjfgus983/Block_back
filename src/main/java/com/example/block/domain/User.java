@@ -102,6 +102,8 @@ public class User extends BaseEntity {
     @Column
     private ContestCategory InterestCategory;
 
+    @Setter
+    private double score;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<TransactionReview> transactionReviewList=new ArrayList<>();
@@ -150,7 +152,6 @@ public class User extends BaseEntity {
                 .isLogin(true)
                 .build();
     }
-
 
     @OneToMany(mappedBy = "userLiker", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Likes> likerList = new ArrayList<>();

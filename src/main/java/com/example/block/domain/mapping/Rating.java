@@ -29,5 +29,5 @@ public class Rating {
     private Contest contest;
 
     @Column(nullable = false)
-    private Float score;
+    private double score;
 }

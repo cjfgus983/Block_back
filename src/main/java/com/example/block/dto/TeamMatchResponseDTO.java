@@ -30,6 +30,7 @@ public class TeamMatchResponseDTO {
         String major;
         String portfolio;
         ApplyPart applyPart;
+        double score;   // 별점
         String content; // 자기소개
         Boolean liked;  // 하트
 //        String profileImageUrl;

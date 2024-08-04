@@ -10,6 +10,7 @@ import com.example.block.dto.ReviewResponseDTO;
 import com.example.block.dto.TeamMatchRequestDTO;
 import com.example.block.dto.TeamMatchResponseDTO;
 import com.example.block.service.AuthService;
+import com.example.block.service.RatingService;
 import com.example.block.service.ReviewService;
 import com.example.block.service.TeamMatchService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -28,6 +29,7 @@ public class TeamMatchRestController {
     private final TeamMatchService teamMatchService;
     private final ReviewService reviewService;
     private final AuthService authService;
+    private final RatingService ratingService;
 
     //  토큰 구현되면 userId를 토큰 정보로 대체
     @PostMapping("/apply")
@@ -52,7 +54,8 @@ public class TeamMatchRestController {
                                                                             @RequestParam(name = "userId") Integer userId){
         Applicant challenger = teamMatchService.getChallenger(contestId, challengerId);
         Boolean hasUserLiked = teamMatchService.hasUserLiked(userId, challenger.getUser().getId(), contestId);
-        return ApiResponse.onSuccess(TeamMatchConverter.toChallengerResultDTO(challenger, hasUserLiked));
+        double score = ratingService.getAverageRating(challenger.getUser().getId());
+        return ApiResponse.onSuccess(TeamMatchConverter.toChallengerResultDTO(challenger, hasUserLiked, score));
     }
 
     //  토큰 구현되면 userId를 토큰 정보로 대체

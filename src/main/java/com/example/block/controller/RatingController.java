@@ -12,12 +12,12 @@ public class RatingController {
     private final RatingService ratingService;
 
     //  userId는 토큰 정보로 대체
-    @PostMapping("/challenger/{challengerId}/score")
+    @PostMapping("/challenger/{ratedUserId}/score")
     public void rateUser(@PathVariable Integer contestId,
-                         @PathVariable Integer challengerId,
-                         @RequestParam Float score,
+                         @PathVariable Integer ratedUserId,
+                         @RequestParam double score,
                          @RequestParam(name = "userId") Integer userId){
 
-        ratingService.rateUser(userId, challengerId, contestId, score);
+        ratingService.rateUser(userId, ratedUserId, contestId, score);
     }
 }
