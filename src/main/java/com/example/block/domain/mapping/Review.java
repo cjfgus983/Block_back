@@ -28,10 +28,10 @@ public class Review extends BaseEntity {
     @JoinColumn(name = "contest_id")
     private Contest contest;
 
-    @Column(columnDefinition = "TEXT", nullable = false)
+    @Column(columnDefinition = "VARCHAR(255)", nullable = false)
     private String content;
 
-    @Column(columnDefinition = "TEXT", nullable = false)
+    @Column(columnDefinition = "VARCHAR(255)", nullable = false)
     private String service;
 
     @Column(length = 20, nullable = false)

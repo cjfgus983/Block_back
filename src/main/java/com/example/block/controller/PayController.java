@@ -28,15 +28,15 @@ public class PayController {
     private final AuthService authService;
 
     @GetMapping("/ready")
-    @Operation(summary = "결제창에서 잔여 포인트 표시",
-            description = "500이 뜨면 url의 pg_token을 복사해서 /pay/success에 입력한 후 요청하면 결제 승인 처리됩니다.")
+    @Operation(summary = "결제창에서 잔여 포인트 표시")
     public ApiResponse<PointResponseDTO.GetMyPointDTO> getPoint() {
         //내 포인트 조회
         return ApiResponse.onSuccess(PointConverter.toPointDTO(pointService.getMyPoint(authService.getUserIdFromSecurity())));
     }
 
     @PostMapping("/ready")
-    @Operation(summary = "리뷰 결제 요청")
+    @Operation(summary = "리뷰 결제 요청",
+            description = "500오류가 뜨면 url의 pg_token을 복사해서 스웨거의 /pay/success에 입력한 후 요청하면 결제 승인 처리됩니다.")
     public ResponseEntity getPoint(@RequestBody @Valid KakaoPayRequestDTO.KakaoPayReadyRequestDTO request){
         //리뷰 결제 요청 처리
         //성공 시 결제한 리뷰 ID와 결제 날짜를 반환한다
