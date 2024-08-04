@@ -8,7 +8,6 @@ spring:
     username: root
     password: kjm950730@ #MySQL password
 
-
   sql:
     init:
       mode: never
@@ -24,4 +23,3 @@ spring:
 
   profiles:
     include: API-KEY, secret
-
