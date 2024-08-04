@@ -17,6 +17,7 @@ public class TeamMatchConverter {
                         .name(applicant.getUser().getName())
                         .university(applicant.getUser().getUniversity())
                         .applyPart(applicant.getApplyPart())
+                        .profileImageUrl(applicant.getUser().getImageUrl())
                         .build()).collect(Collectors.toList());
     }
 
@@ -31,6 +32,7 @@ public class TeamMatchConverter {
                 .score(score)
                 .content(challenger.getContent())
                 .liked(hasUserLiked)
+                .profileImageUrl(challenger.getUser().getImageUrl())
                 .build();
     }
 
