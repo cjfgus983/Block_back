@@ -23,6 +23,10 @@ public class TeamMatchService {
     private final MatchesRepository matchRepository;
     private final LikesRepository likesRepository;
 
+    public User findUser(Integer userId){
+        return userRepository.findById(userId).orElse(null);
+    }
+
     public void applyToContest(TeamMatchRequestDTO.ApplyDTO request, Integer contestId, Integer userId){
 
         if(applicantRepository.findByContestIdAndUserId(contestId, userId).isPresent()){

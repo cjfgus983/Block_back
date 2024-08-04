@@ -17,7 +17,7 @@ public class TeamMatchResponseDTO {
         String name;
         String university;
         ApplyPart applyPart;
-//        String profileImageUrl;
+        String profileImageUrl;
     }
 
     @Builder
@@ -30,9 +30,10 @@ public class TeamMatchResponseDTO {
         String major;
         String portfolio;
         ApplyPart applyPart;
+        double score;   // 별점
         String content; // 자기소개
         Boolean liked;  // 하트
-//        String profileImageUrl;
+        String profileImageUrl;
     }
 
     @Builder
