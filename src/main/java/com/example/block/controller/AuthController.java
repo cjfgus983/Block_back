@@ -9,6 +9,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -32,7 +33,7 @@ public class AuthController {
     @Operation(summary = "카카오 로그인", description = "카카오 로그인 handler의 콜백 메서드이다.")
     @GetMapping("/oauth2/kakao")
     public ApiResponse<KakaoLoginResponse> loginKakao(@RequestParam(name = "accessToken") String accessToken,
-                                                         @RequestParam(name = "refreshToken") String refreshToken, @RequestParam(name = "providerId") Long providerId) {
+                                                      @RequestParam(name = "refreshToken") String refreshToken, @RequestParam(name = "providerId") Long providerId) {
 
         return ApiResponse.onSuccess(KakaoLoginResponse.of(accessToken,refreshToken,providerId));
     }
@@ -57,4 +58,5 @@ public class AuthController {
 
         return ApiResponse.onSuccess(authService.signIn(request));
     }
+
 }

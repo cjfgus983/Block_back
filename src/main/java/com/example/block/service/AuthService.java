@@ -12,8 +12,10 @@ import com.example.block.utillity.JwtUtil;
 import com.example.block.utillity.PasswordEncoder;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import com.univcert.api.UnivCert;
 
 import java.util.Objects;
 import java.util.Optional;
@@ -21,6 +23,7 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 public class AuthService {
+
 
     private final UserRepository userRepository;
     private final JwtUtil jwtUtil;
@@ -71,7 +74,7 @@ public class AuthService {
             }
             //일반 로그인인 경우
             else {
-                user = userRepository.save(User.signUp(request.getProviderId()));
+                user = userRepository.save(User.signUpByRequest(request));
                 user.setIsNewUser(false);
                 user.setPlatform(Constants.PLATFORM_GENERAL);
 
@@ -79,6 +82,7 @@ public class AuthService {
         }else {
             // 카카오 로그인 사용자
             user = where_user.get();
+            updateKakaoUser(user, request);
         }
 
         user.setEmail(request.getEmail());
@@ -117,5 +121,22 @@ public class AuthService {
         }
         return ((UserPrincipal) principal).getId();
     }
+
+    private void updateKakaoUser(User user, SignUpRequest request) {
+
+        user.setSerialId(request.getProviderId());
+        user.setEmail(request.getEmail());
+        user.setPassWord(request.getPassword());
+        user.setName(request.getName());
+        user.setPhoneNumber(request.getPhoneNumber());
+        user.setUniversity(request.getUniversity());
+        user.setBirthDay(request.getBirthDay());
+        user.setUnivMajor(request.getUnivMajor());
+        user.setPortfolio(request.getPortfolio());
+        user.setIsLogin(true);
+        user.setPoint(0L);
+
+    }
+
 
 }
