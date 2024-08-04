@@ -85,7 +85,7 @@ public class User extends BaseEntity {
 
 
     @Enumerated(EnumType.STRING)
-    @Column(columnDefinition = "VARCHAR(10) DEFAULT 'kakao' ")
+    @Column(columnDefinition = "VARCHAR(10) DEFAULT 'kakao'")
     private LoginType loginType;
 
     //    0 = FALSE, 1 = TRUE

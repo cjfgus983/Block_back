@@ -1,5 +1,6 @@
 package com.example.block.dto;
 
+import lombok.Builder;
 import lombok.Getter;
 
 public class PointRequestDTO {
@@ -10,8 +11,9 @@ public class PointRequestDTO {
     }
 
     @Getter
+    @Builder
     public static class PointUse{
-        private Integer userId;
         private Long point;
+        private String reason;
     }
 }
