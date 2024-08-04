@@ -31,7 +31,7 @@ public class TeamMatchRestController {
     private final AuthService authService;
     private final RatingService ratingService;
 
-    @PostMapping("/applyPage")
+    @GetMapping("/applyPage")
     public String applyPage(){
 
         Integer userId = authService.getUserIdFromSecurity();
