@@ -97,8 +97,6 @@ public class User extends BaseEntity {
     @Column(columnDefinition = "BIGINT DEFAULT 0")
     private Long point;
 
-<<<<<<< HEAD
-=======
     @Enumerated(EnumType.STRING)
     @Column
     private ContestCategory InterestCategory;
@@ -106,7 +104,6 @@ public class User extends BaseEntity {
     @Setter
     private double score;
 
->>>>>>> eefef8443946e90ca32e3a9079a14677c02aee43
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<TransactionReview> transactionReviewList=new ArrayList<>();
 
@@ -121,12 +118,8 @@ public class User extends BaseEntity {
         return id;
     }
 
-<<<<<<< HEAD
-=======
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<MyContest> myContestList = new ArrayList<>();
-
->>>>>>> eefef8443946e90ca32e3a9079a14677c02aee43
     @Builder
     public User(Long serialId) {
         this.serialId = serialId;
