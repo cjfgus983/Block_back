@@ -1,6 +1,7 @@
 package com.example.block.domain;
 
 import com.example.block.domain.common.BaseEntity;
+import com.example.block.domain.enums.ContestCategory;
 import com.example.block.domain.enums.LoginType;
 import com.example.block.domain.mapping.Likes;
 import com.example.block.domain.mapping.TransactionReview;
@@ -15,6 +16,7 @@ import lombok.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 
 @Entity(name = "User")
@@ -80,9 +82,10 @@ public class User extends BaseEntity {
     @Column(name = "is_new_user")
     private Boolean isNewUser;
 
-//    @Enumerated(EnumType.STRING)
-//    @Column(columnDefinition = "VARCHAR(10) DEFAULT kakao ")
-//    private LoginType loginType;
+
+    @Enumerated(EnumType.STRING)
+    @Column(columnDefinition = "VARCHAR(10) DEFAULT 'kakao'")
+    private LoginType loginType;
 
     //    0 = FALSE, 1 = TRUE
     @Column(columnDefinition = "TINYINT(1) DEFAULT 0")
@@ -94,6 +97,16 @@ public class User extends BaseEntity {
     @Column(columnDefinition = "BIGINT DEFAULT 0")
     private Long point;
 
+<<<<<<< HEAD
+=======
+    @Enumerated(EnumType.STRING)
+    @Column
+    private ContestCategory InterestCategory;
+
+    @Setter
+    private double score;
+
+>>>>>>> eefef8443946e90ca32e3a9079a14677c02aee43
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<TransactionReview> transactionReviewList=new ArrayList<>();
 
@@ -108,6 +121,12 @@ public class User extends BaseEntity {
         return id;
     }
 
+<<<<<<< HEAD
+=======
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<MyContest> myContestList = new ArrayList<>();
+
+>>>>>>> eefef8443946e90ca32e3a9079a14677c02aee43
     @Builder
     public User(Long serialId) {
         this.serialId = serialId;
