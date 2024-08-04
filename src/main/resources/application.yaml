@@ -23,5 +23,9 @@ spring:
           auto: update
 
   profiles:
-    include: API-KEY
+    include: API-KEY, secret
 
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB

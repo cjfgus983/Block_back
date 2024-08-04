@@ -8,6 +8,7 @@ import com.example.block.global.apiPayload.code.status.ErrorStatus;
 import com.example.block.global.apiPayload.exception.GeneralException;
 import com.example.block.dto.KakaoPayRequestDTO;
 import com.example.block.dto.KakaoPayResponseDTO;
+import com.example.block.service.AuthService;
 import com.example.block.service.PointService;
 import com.example.block.service.kakao.KakaoPayService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -24,12 +25,14 @@ import org.springframework.web.bind.annotation.*;
 public class PayController {
     private final PointService pointService;
     private final KakaoPayService kakaoPayService;
+    private final AuthService authService;
 
-    @GetMapping("/{userId}/ready")
-    @Operation(summary = "결제창에서 잔여 포인트 표시")
-    public ApiResponse<PointResponseDTO.GetMyPointDTO> getPoint(@PathVariable(name="userId") Integer userId) {
+    @GetMapping("/ready")
+    @Operation(summary = "결제창에서 잔여 포인트 표시",
+            description = "500이 뜨면 url의 pg_token을 복사해서 /pay/success에 입력한 후 요청하면 결제 승인 처리됩니다.")
+    public ApiResponse<PointResponseDTO.GetMyPointDTO> getPoint() {
         //내 포인트 조회
-        return ApiResponse.onSuccess(PointConverter.toPointDTO(pointService.getMyPoint(userId)));
+        return ApiResponse.onSuccess(PointConverter.toPointDTO(pointService.getMyPoint(authService.getUserIdFromSecurity())));
     }
 
     @PostMapping("/ready")

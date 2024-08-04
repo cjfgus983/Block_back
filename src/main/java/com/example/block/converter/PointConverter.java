@@ -2,6 +2,8 @@ package com.example.block.converter;
 
 import com.example.block.domain.PointDetail;
 import com.example.block.domain.enums.PointType;
+import com.example.block.dto.KakaoPayRequestDTO;
+import com.example.block.dto.PointRequestDTO;
 import com.example.block.dto.PointResponseDTO;
 
 import java.util.List;
@@ -21,6 +23,14 @@ public class PointConverter {
                 .amount(point)
                 .type(type)
                 .reason(reason)
+                .build();
+    }
+
+    public static PointRequestDTO.PointUse toPointRequestUseDTO(KakaoPayRequestDTO.KakaoPayReadyRequestDTO ready) {
+        //카카오 request DTO -> 포인트 사용 request DTO 변환
+        return PointRequestDTO.PointUse.builder()
+                .point(ready.getUsingPoint())
+                .reason(ready.getItemName())
                 .build();
     }
 

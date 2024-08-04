@@ -29,8 +29,6 @@ import java.util.List;
 public class PointService {
 
     private final UserRepository userRepository;
-    private final ReviewRepository reviewRepository;
-    private final TransactionReviewRepository transactionReviewRepository;
     private final PointDetailRepository pointDetailRepository;
 
     @Transactional
@@ -49,13 +47,12 @@ public class PointService {
     }
 
     @Transactional
-    public PointDetail usePoint(Integer userId, PointRequestDTO.PointCharge request) {
+    public PointDetail usePoint(Integer userId, PointRequestDTO.PointUse request, PointType pointType) {
         //포인트 사용
         User user = userRepository.findById(userId).orElseThrow(
                 () -> new GeneralException(ErrorStatus._USER_NOT_FOUND));
-
         //pointDetail 추가 -> 포인트 사용은 -로 표시
-        PointDetail pointDetail = PointConverter.toPointDetail(-request.getPoint(),PointType.SPEND,request.getReason());
+        PointDetail pointDetail = PointConverter.toPointDetail(-request.getPoint(),pointType,request.getReason());
         pointDetail.setUser(user);
 
         updateMyPoint(pointDetail);
@@ -72,7 +69,6 @@ public class PointService {
         return user.getPoint();
     }
 
-
     public List<PointDetail> getMyPointDetail(Integer userId) {
         //내 포인트 상세 조회
         User user = userRepository.findById(userId).orElseThrow(
@@ -81,45 +77,6 @@ public class PointService {
         Pageable pageable = PageRequest.of(0, 5);
 
         return pointDetailRepository.findTopByUserIdOrderByCreatedAtDesc(userId,pageable);
-    }
-
-
-    @Transactional
-    public void payForReview(Integer userId, Integer reviewId, Long point){
-        //리뷰 정상 결제 시 transactionReview 추가 및 pointDetail 추가
-        User user = userRepository.findById(userId).orElseThrow(
-                () -> new GeneralException(ErrorStatus._USER_NOT_FOUND));
-        Review review=reviewRepository.findById(reviewId).orElseThrow(
-                () -> new GeneralException(ErrorStatus._REVIEW_NOT_FOUND));
-
-        //transactionReview 추가
-        TransactionReview transactionReview = TransactionReviewConverter.toTransactionReview(user,review);
-        transactionReview.setUserReview(user,review);
-
-        if(point==0){
-            return;
-        }
-
-        //pointDetail 추가
-        PointDetail pointDetail = PointConverter.toPointDetail(-point,PointType.KAKAOPAYSPEND,"공모전 후기 결제");
-        pointDetail.setUser(user);
-
-        updateMyPoint(pointDetail);
-
-    }
-
-
-    @Transactional
-    public boolean isAlreadyPaid(Integer userId, Integer reviewId) {
-        //이미 결제한 리뷰인지 확인
-        User user = userRepository.findById(userId).orElseThrow(
-                () -> new GeneralException(ErrorStatus._USER_NOT_FOUND));
-        Review review=reviewRepository.findById(reviewId).orElseThrow(
-                () -> new GeneralException(ErrorStatus._REVIEW_NOT_FOUND));
-
-        TransactionReview transactionReview = transactionReviewRepository.findAllByUserAndReview(user,review);
-
-        return transactionReview != null;
     }
 
     @Transactional

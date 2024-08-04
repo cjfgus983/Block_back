@@ -16,7 +16,6 @@ import java.util.List;
 @NoArgsConstructor(access= AccessLevel.PROTECTED)
 @AllArgsConstructor
 public class Review extends BaseEntity {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -29,11 +28,14 @@ public class Review extends BaseEntity {
     @JoinColumn(name = "contest_id")
     private Contest contest;
 
-    @Column(nullable = true, length = 25)
+    @Column(columnDefinition = "TEXT", nullable = false)
     private String content;
 
-    @Column(nullable = true)
-    private Float score;
+    @Column(columnDefinition = "TEXT", nullable = false)
+    private String service;
+
+    @Column(length = 20, nullable = false)
+    private String prize;
 
     @OneToMany(mappedBy = "review", cascade = CascadeType.ALL)
     private List<TransactionReview> transactionReviewList=new ArrayList<>();
