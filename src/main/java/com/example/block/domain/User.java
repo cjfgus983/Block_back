@@ -77,7 +77,6 @@ public class User extends BaseEntity {
     @Column(name = "is_login", columnDefinition = "TINYINT(1)")
     private Boolean isLogin;
 
-
     @Column(name = "is_new_user")
     private Boolean isNewUser;
 
@@ -94,7 +93,6 @@ public class User extends BaseEntity {
 
     @Column(columnDefinition = "BIGINT DEFAULT 0")
     private Long point;
-
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<TransactionReview> transactionReviewList=new ArrayList<>();
