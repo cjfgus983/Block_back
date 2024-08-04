@@ -12,6 +12,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
+
 public class MyPageResponseDTO {
 
     @Builder
@@ -25,6 +27,14 @@ public class MyPageResponseDTO {
         ApplyPart applyPart;
         String contestTitle;
 //        String profileImageUrl;
+    }
+
+    @Builder
+    @Getter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class profileImageDTO {
+        String profileImageName;
     }
 
     // mypage 메인화면에서 활용
@@ -72,4 +82,5 @@ public class MyPageResponseDTO {
         String imageUrl;
         ContestType status;
     }
+
 }

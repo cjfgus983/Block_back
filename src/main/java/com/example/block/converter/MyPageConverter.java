@@ -22,7 +22,13 @@ public class MyPageConverter {
                 ).collect(Collectors.toList());
     }
 
-    public static MyPageResponseDTO.myPageDTO toMyPageDTO(User user){
+    public static MyPageResponseDTO.profileImageDTO toChangeProfileImageDTO(String fileName) {
+        return MyPageResponseDTO.profileImageDTO.builder()
+                .profileImageName(fileName)
+                .build();
+    }
+
+    public static MyPageResponseDTO.myPageDTO toMyPageDTO(User user) {
         return MyPageResponseDTO.myPageDTO.builder()
                 .name(user.getName())
                 .imageUrl(user.getImageUrl())

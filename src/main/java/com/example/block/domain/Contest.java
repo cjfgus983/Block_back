@@ -3,6 +3,8 @@ package com.example.block.domain;
 import com.example.block.domain.common.BaseEntity;
 import com.example.block.domain.enums.ContestType;
 import com.example.block.domain.mapping.Applicant;
+import com.example.block.domain.mapping.Likes;
+import com.example.block.domain.mapping.Review;
 import jakarta.persistence.*;
 import lombok.*;
 import org.checkerframework.checker.units.qual.C;
@@ -56,9 +58,16 @@ public class Contest extends BaseEntity {
     @Column(nullable = false)
     private String host;
 
+    @OneToMany(mappedBy = "contest")
+    private List<Likes> likesList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "contest", cascade = CascadeType.ALL)
+    private List<Review> reviewList = new ArrayList<>();
+
     @OneToMany(mappedBy = "contest", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Applicant> applicants = new ArrayList<>();
 
     @OneToMany(mappedBy = "contest", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<MyContest> myContests = new ArrayList<>();
+
 }

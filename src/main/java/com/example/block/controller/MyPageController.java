@@ -12,12 +12,17 @@ import com.example.block.domain.mapping.Applicant;
 import com.example.block.dto.MyPageResponseDTO;
 import com.example.block.dto.PointRequestDTO;
 import com.example.block.dto.PointResponseDTO;
+import com.example.block.service.ImageService;
 import com.example.block.service.AuthService;
 import com.example.block.service.MyPageService;
 import com.example.block.service.PointService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.Content;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.view.RedirectView;
 
 import java.util.List;
@@ -29,30 +34,43 @@ import java.util.List;
 public class MyPageController {
     private final PointService pointService;
     private final MyPageService myPageService;
+    private final ImageService imageService;
     private final AuthService authService;
+
+    @PostMapping(value="/myProfileChange",consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    @Operation(summary = "내 프로필 이미지 등록,변경,삭제",
+            description = "선택파일이 없으면 기존 프로필 이미지를 삭제합니다. 선택파일이 없을 경우 Send empty value 체크해제하고 테스트해주세요. swagger 기본스펙이라 수정이 안됨..")
+    public ApiResponse<MyPageResponseDTO.profileImageDTO> changeProfileImage(@RequestPart(value = "file", required = false) MultipartFile image)
+    {
+        if (image == null || image.isEmpty()) {
+            // 내 프로필 이미지 삭제
+            return ApiResponse.onSuccess(MyPageConverter.toChangeProfileImageDTO(
+                    imageService.deleteProfileImage(authService.getUserIdFromSecurity())));
+        }
+        // 내 프로필 이미지 등록, 변경 -> 새로 들어온 이미지로 변경
+        return ApiResponse.onSuccess(MyPageConverter.toChangeProfileImageDTO(
+                imageService.uploadProfileImage(authService.getUserIdFromSecurity(), image)));
+    }
 
     @GetMapping("/point")
     @Operation(summary = "내 포인트 조회")
-    public ApiResponse<PointResponseDTO.GetMyPointDTO> getPoint(@PathVariable(name = "userId") Integer userId) {
+    public ApiResponse<PointResponseDTO.GetMyPointDTO> getPoint() {
         //내 포인트 조회
         return ApiResponse.onSuccess(PointConverter.toPointDTO(pointService.getMyPoint(authService.getUserIdFromSecurity())));
     }
 
-    @GetMapping("/{userId}/pointDetail")
+    @GetMapping("/pointDetail")
     @Operation(summary = "내 포인트 상세 내역 조회")
-    public ApiResponse<PointResponseDTO.GetMyPointDetailListDTO> getPointDetail(@PathVariable(name = "userId") Integer userId) {
+    public ApiResponse<PointResponseDTO.GetMyPointDetailListDTO> getPointDetail() {
         //내 포인트 상세 조회 : 최근 5개
-        List<PointDetail> pointDetails = pointService.getMyPointDetail(userId);
-
-        return ApiResponse.onSuccess(PointConverter.toPointDetailListDTO(pointDetails));
+        return ApiResponse.onSuccess(PointConverter.toPointDetailListDTO(pointService.getMyPointDetail(authService.getUserIdFromSecurity())));
     }
 
-    @PostMapping("/{userId}/charge")
-    @Operation(summary = "포인트 지급")
-    public ApiResponse<PointResponseDTO.GetMyPointDetailDTO> chargePoint(@PathVariable(name = "userId") Integer userId,
-                                                                         @RequestBody PointRequestDTO.PointCharge request) {
+    @PostMapping("/charge")
+    @Operation(summary = "포인트 지급/포인트 상세내역 확인용")
+    public ApiResponse<PointResponseDTO.GetMyPointDetailDTO> chargePoint(@RequestBody PointRequestDTO.PointCharge request) {
         //포인트 충전
-        PointDetail point = pointService.chargePoint(userId, request.getPoint());
+        PointDetail point=pointService.chargePoint(authService.getUserIdFromSecurity(), request);
         return ApiResponse.onSuccess(PointConverter.toPointDetailDTO(point));
     }
 
@@ -120,4 +138,5 @@ public class MyPageController {
         // 내가 저장한 공모전 목록 조회
         return ApiResponse.onSuccess(myPageService.getMyContestList(userId));
     }
+
 }

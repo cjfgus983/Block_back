@@ -1,5 +1,6 @@
 package com.example.block.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -14,9 +15,12 @@ public class ReviewResponseDTO {
     @AllArgsConstructor
     public static class GetReviewDetailDTO{
         //리뷰 상세 조회 응답 정보
-        private String content;
-        private Float score;
-        private LocalDateTime createdAt;
-
+        String writer;
+        String content;
+        String service;
+        String prize;
+        Float score;
+        @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Seoul")
+        LocalDateTime createdAt;
     }
 }
