@@ -47,7 +47,12 @@ public enum ErrorStatus implements BaseErrorCode {
     TOKEN_UNKNOWN_ERROR( HttpStatus.UNAUTHORIZED,"40107", "알 수 없는 토큰입니다."),
     TOKEN_NULL_ERROR( HttpStatus.UNAUTHORIZED,"40108", "토큰이 존재하지 않습니다."),
 
-    CHALLENGER_ALREADY_EXISTS(HttpStatus.BAD_REQUEST, "APPLY400", "이미 지원한 공모전입니다.")
+    //매칭 관련
+    CHALLENGER_ALREADY_EXISTS(HttpStatus.BAD_REQUEST, "MATCH400", "이미 지원한 공모전입니다."),
+    CHALLENGER_NOT_MATCHED(HttpStatus.BAD_REQUEST, "MATCH400", "매칭된 상대가 아닙니다."),
+
+    //rating 관련
+    RATING_ALREADY_COMPLETED(HttpStatus.BAD_REQUEST, "RATE400", "이미 별점을 준 상대입니다.")
 
 
             ;

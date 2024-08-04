@@ -45,11 +45,6 @@ public class TeamMatchRestController {
         return ApiResponse.onSuccess(TeamMatchConverter.toChallengerResultDTO(challenger, hasUserLiked));
     }
 
-    @PostMapping("/challenger/{challengerId}")
-    public void like(@PathVariable Integer contestId, @PathVariable Integer challengerId){
-
-    }
-
     //  토큰 구현되면 userId를 토큰 정보로 대체
     //  매칭된 팀원 출력
     @GetMapping("/member")
