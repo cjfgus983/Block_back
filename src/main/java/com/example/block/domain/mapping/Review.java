@@ -1,5 +1,7 @@
 package com.example.block.domain.mapping;
 
+import com.example.block.domain.Contest;
+import com.example.block.domain.User;
 import com.example.block.domain.common.BaseEntity;
 import jakarta.persistence.*;
 import lombok.*;
@@ -14,20 +16,28 @@ import java.util.List;
 @NoArgsConstructor(access= AccessLevel.PROTECTED)
 @AllArgsConstructor
 public class Review extends BaseEntity {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(nullable = true, length = 25)
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
+    @ManyToOne
+    @JoinColumn(name = "contest_id")
+    private Contest contest;
+
+    @Column(columnDefinition = "VARCHAR(255)", nullable = false)
     private String content;
 
-    @Column(nullable = true)
-    private Float score;
+    @Column(columnDefinition = "VARCHAR(255)", nullable = false)
+    private String service;
+
+    @Column(length = 20, nullable = false)
+    private String prize;
 
     @OneToMany(mappedBy = "review", cascade = CascadeType.ALL)
     private List<TransactionReview> transactionReviewList=new ArrayList<>();
-
-
 
 }
