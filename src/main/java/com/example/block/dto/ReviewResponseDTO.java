@@ -41,7 +41,7 @@ public class ReviewResponseDTO {
         Integer reviewId;
         String userName;
         String prize;
-        float score;
+        Double score;
     }
     @Builder
     @Getter

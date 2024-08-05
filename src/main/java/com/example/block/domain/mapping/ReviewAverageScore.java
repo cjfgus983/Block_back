@@ -1,6 +1,7 @@
 package com.example.block.domain.mapping;
 
 
+import com.example.block.domain.User;
 import com.example.block.domain.common.BaseEntity;
 import jakarta.persistence.*;
 import lombok.*;
@@ -18,5 +19,14 @@ public class ReviewAverageScore extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
 
+    @ManyToOne
+    @JoinColumn(name = "review_id", nullable = false)
+    private Review review;
+
+    @Column(name = "score", nullable = false)
+    private double score;
 }

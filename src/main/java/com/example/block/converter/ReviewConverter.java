@@ -2,6 +2,7 @@ package com.example.block.converter;
 
 
 import com.example.block.domain.mapping.Review;
+import com.example.block.domain.mapping.ReviewAverageScore;
 import com.example.block.dto.ReviewRequestDTO;
 import com.example.block.dto.ReviewResponseDTO;
 
@@ -33,11 +34,12 @@ public class ReviewConverter {
                 .build();
     }
     public static ReviewResponseDTO.ViewReviewResultDTO toViewReviewResultDTO(Review review) {
+        double averageScore = review.getReviewAverageScoresList().stream().mapToDouble(ReviewAverageScore::getScore).average().orElse(0.0);
         return ReviewResponseDTO.ViewReviewResultDTO.builder()
                 .reviewId(review.getId())
                 .userName(review.getUser().getName())
                 .prize(review.getPrize())
-//                .score(score)
+                .score(averageScore)
                 .build();
     }
     public static ReviewResponseDTO.ViewReviewResultListDTO toViewReviewResultListDTO(List<Review> reviews) {
@@ -57,8 +59,15 @@ public class ReviewConverter {
                 .service(review.getService())
                 .prize(review.getPrize())
                 .createdAt(review.getCreated_at())
-                //.score(score)
+//                .score(score)
                 .build();
+    }
 
+    public static ReviewAverageScore toReviewAverageScore(ReviewRequestDTO.RateReviewDTO request){
+        return ReviewAverageScore.builder()
+                .user(request.getUser())
+                .review(request.getReview())
+                .score(request.getScore())
+                .build();
     }
 }

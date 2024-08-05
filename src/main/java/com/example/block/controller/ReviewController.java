@@ -6,6 +6,7 @@ import com.example.block.domain.mapping.Review;
 import com.example.block.dto.KakaoPayRequestDTO;
 import com.example.block.dto.ReviewRequestDTO;
 import com.example.block.dto.ReviewResponseDTO;
+import com.example.block.service.AuthService;
 import com.example.block.service.LikeService;
 import com.example.block.service.ReviewService;
 import jakarta.validation.Valid;
@@ -20,23 +21,26 @@ import java.util.List;
 public class ReviewController {
 
     private final ReviewService reviewService;
+    private final AuthService authService;
 
     @PostMapping("/regist")
     public ApiResponse<ReviewResponseDTO.ReviewResultDTO> addReview(@Valid @RequestBody ReviewRequestDTO.ReviewDTO request){
-        Review review = reviewService.addReview(request);
+        Integer userId = authService.getUserIdFromSecurity();
+        Review review = reviewService.addReview(userId, request);
         return ApiResponse.onSuccess(ReviewConverter.toAddReviewResultDTO(review));
     }
 
     @PostMapping("/{reviewId}")
     public ApiResponse<ReviewResponseDTO.ReviewResultDTO> updateReview(@Valid @PathVariable("reviewId") Integer reviewId, @RequestBody ReviewRequestDTO.ReviewDTO request){
-        Review review = reviewService.updateReview(reviewId, request);
+        Integer userId = authService.getUserIdFromSecurity();
+        Review review = reviewService.updateReview(userId, reviewId, request);
         return ApiResponse.onSuccess(ReviewConverter.toUpdateReviewResultDTO(review));
     }
 
-
     @PostMapping("/{reviewId}")
     public void deleteReview(@Valid @PathVariable ("reviewId") Integer reviewId){
-        reviewService.deleteReview(reviewId);
+        Integer userId = authService.getUserIdFromSecurity();
+        reviewService.deleteReview(userId, reviewId);
     }
 
     @GetMapping("")
@@ -44,5 +48,9 @@ public class ReviewController {
         List<Review> reviewList = reviewService.viewReviewList(contestId);
         return ApiResponse.onSuccess(ReviewConverter.toViewReviewResultListDTO(reviewList));
     }
-
+    @PostMapping("/{reviewId}")
+    public void rateReview(@Valid @RequestBody ReviewRequestDTO.RateReviewDTO request){
+        Integer userId = authService.getUserIdFromSecurity();
+        reviewService.rateReview(userId, request);
+    }
 }

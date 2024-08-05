@@ -4,6 +4,7 @@ import com.example.block.domain.common.BaseEntity;
 import com.example.block.domain.enums.ContestCategory;
 import com.example.block.domain.enums.LoginType;
 import com.example.block.domain.mapping.Likes;
+import com.example.block.domain.mapping.ReviewAverageScore;
 import com.example.block.domain.mapping.TransactionReview;
 
 
@@ -106,6 +107,9 @@ public class User extends BaseEntity {
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<TransactionReview> transactionReviewList=new ArrayList<>();
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<ReviewAverageScore> reviewAverageScoresList=new ArrayList<>();
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<PointDetail> pointDetailList=new ArrayList<>();

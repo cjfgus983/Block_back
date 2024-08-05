@@ -2,6 +2,7 @@ package com.example.block.dto;
 
 import com.example.block.domain.Contest;
 import com.example.block.domain.User;
+import com.example.block.domain.mapping.Review;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
@@ -29,5 +30,15 @@ public class ReviewRequestDTO {
         @NotNull
         String prize;
     }
+    @Getter
+    public static class RateReviewDTO{
+        @NotNull
+        User user;
 
+        @NotNull
+        Review review;
+
+        @NotNull
+        double score;
+    }
 }
