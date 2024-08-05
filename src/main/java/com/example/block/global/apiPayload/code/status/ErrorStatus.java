@@ -27,6 +27,7 @@ public enum ErrorStatus implements BaseErrorCode {
     _NEED_PAY(HttpStatus.BAD_REQUEST,"PAY400","결제가 필요합니다."),
     //리뷰 관련
     _REVIEW_NOT_FOUND(HttpStatus.NOT_FOUND,"REVIEW404","리뷰가 존재하지 않습니다."),
+    _REVIEW_ALREADY_EXIST(HttpStatus.NOT_FOUND,"REVIEW404","리뷰가 이미 존재합니다."),
     //유저 관련
     _USER_NOT_FOUND(HttpStatus.NOT_FOUND,"USER404","유저가 존재하지 않습니다."),
     EXIST_EMAIL( HttpStatus.CONFLICT, "EMAIL405", "이미 존재하는 이메일입니다."),

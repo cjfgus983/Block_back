@@ -18,4 +18,5 @@ public class ReviewAverageScore extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+
 }

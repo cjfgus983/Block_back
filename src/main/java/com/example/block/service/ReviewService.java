@@ -1,18 +1,25 @@
 package com.example.block.service;
 
 
+import com.example.block.converter.ReviewConverter;
 import com.example.block.converter.TransactionReviewConverter;
 import com.example.block.domain.User;
+import com.example.block.domain.mapping.Likes;
 import com.example.block.domain.mapping.Review;
 import com.example.block.domain.mapping.TransactionReview;
+import com.example.block.dto.ReviewRequestDTO;
 import com.example.block.global.apiPayload.code.status.ErrorStatus;
 import com.example.block.global.apiPayload.exception.GeneralException;
+import com.example.block.global.apiPayload.exception.handler.LikeHandler;
 import com.example.block.repository.ReviewRepository;
 import com.example.block.repository.TransactionReviewRepository;
 import com.example.block.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -62,10 +69,40 @@ public class ReviewService {
         //리뷰 결제
         Review review=reviewRepository.findById(reviewId).orElseThrow(
                 () -> new GeneralException(ErrorStatus._REVIEW_NOT_FOUND));
-
         //transactionReview 추가
         TransactionReview transactionReview = TransactionReviewConverter.toTransactionReview(user,review);
         transactionReview.setUserReview(user,review);
     }
 
+    public Review addReview(ReviewRequestDTO.ReviewDTO request){
+        Optional<Review> optionalReview = reviewRepository.findByUserIdAndContestId(request.getUser().getId(),request.getContest().getId());
+        if(optionalReview.isPresent()){
+            throw new GeneralException(ErrorStatus._REVIEW_ALREADY_EXIST);
+        }
+        else{
+            Review newReview = ReviewConverter.toReview(request);
+            return reviewRepository.save(newReview);
+        }
+    }
+    public Review updateReview(Integer reviewId, ReviewRequestDTO.ReviewDTO request){
+        Review existingReview = reviewRepository.findById(reviewId)
+                .orElseThrow(() -> new GeneralException(ErrorStatus._REVIEW_NOT_FOUND));
+        existingReview.setService(request.getService());
+        existingReview.setContent(request.getContent());
+        existingReview.setPrize(request.getPrize());
+        return reviewRepository.save(existingReview);
+    }
+
+    public void deleteReview(Integer reviewId){
+        Optional<Review> optionalReview = reviewRepository.findByReivewId(reviewId);
+        if(optionalReview.isPresent()){
+            reviewRepository.delete(optionalReview.get());
+        }
+        else {
+            throw new GeneralException(ErrorStatus._REVIEW_NOT_FOUND);
+        }
+    }
+    public List<Review> viewReviewList(Integer contestId){
+        return reviewRepository.findByContestId(contestId);
+    }
 }
