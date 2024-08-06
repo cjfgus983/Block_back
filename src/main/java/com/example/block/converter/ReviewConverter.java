@@ -1,6 +1,8 @@
 package com.example.block.converter;
 
 
+import com.example.block.domain.Contest;
+import com.example.block.domain.User;
 import com.example.block.domain.mapping.Review;
 import com.example.block.domain.mapping.ReviewAverageScore;
 import com.example.block.dto.ReviewRequestDTO;
@@ -12,10 +14,10 @@ import java.util.stream.Collectors;
 public class ReviewConverter {
 
 //    dto - > entity
-    public static Review toReview(ReviewRequestDTO.ReviewDTO request){
+    public static Review toReview(ReviewRequestDTO.ReviewDTO request, User user, Contest contest){
         return Review.builder()
-                .contest(request.getContest())
-                .user(request.getUser())
+                .contest(contest)
+                .user(user)
                 .content(request.getContent())
                 .service(request.getService())
                 .prize(request.getPrize())
@@ -24,7 +26,7 @@ public class ReviewConverter {
     public static ReviewResponseDTO.ReviewResultDTO toAddReviewResultDTO(Review review){
         return ReviewResponseDTO.ReviewResultDTO.builder()
                 .reviewId(review.getId())
-                .message("update!")
+                .message("add!")
                 .build();
     }
     public static ReviewResponseDTO.ReviewResultDTO toUpdateReviewResultDTO(Review review){
@@ -63,10 +65,10 @@ public class ReviewConverter {
                 .build();
     }
 
-    public static ReviewAverageScore toReviewAverageScore(ReviewRequestDTO.RateReviewDTO request){
+    public static ReviewAverageScore toReviewAverageScore(ReviewRequestDTO.RateReviewDTO request, User user, Review review){
         return ReviewAverageScore.builder()
-                .user(request.getUser())
-                .review(request.getReview())
+                .user(user)
+                .review(review)
                 .score(request.getScore())
                 .build();
     }

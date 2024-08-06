@@ -15,11 +15,6 @@ public class ReviewRequestDTO {
     @Getter
     @Builder
     public static class ReviewDTO {
-        @NotNull
-        User user;
-
-        @NotNull
-        Contest contest;
 
         @NotNull
         String content;
@@ -32,12 +27,6 @@ public class ReviewRequestDTO {
     }
     @Getter
     public static class RateReviewDTO{
-        @NotNull
-        User user;
-
-        @NotNull
-        Review review;
-
         @NotNull
         double score;
     }
