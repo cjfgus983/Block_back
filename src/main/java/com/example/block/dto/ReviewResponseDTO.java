@@ -20,7 +20,7 @@ public class ReviewResponseDTO {
         String content;
         String service;
         String prize;
-        Float score;
+        Double score;
         @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Seoul")
         LocalDateTime createdAt;
     }
