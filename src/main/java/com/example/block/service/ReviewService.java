@@ -38,14 +38,17 @@ public class ReviewService {
         if (!reviewRepository.existsByIdAndContestId(reviewId,contestId)){
             throw new GeneralException(ErrorStatus._REVIEW_NOT_FOUND);
         }
+
+        Review review=reviewRepository.findById(reviewId).orElseThrow(
+                () -> new GeneralException(ErrorStatus._REVIEW_NOT_FOUND));
+        //자신이 작성한 리뷰인지 확인
+        if(review.getUser().getId().equals(userId)){
+            return review;
+        }
         //결제가 되어있지 않을 경우 결제가 필요하다는 에러를 반환
         if (!isAlreadyPaid(userId,reviewId)) {
             throw new GeneralException(ErrorStatus._NEED_PAY);
         }
-
-        Review review=reviewRepository.findById(reviewId).orElseThrow(
-                () -> new GeneralException(ErrorStatus._REVIEW_NOT_FOUND));
-
         // 리뷰 반환
         return review;
     }
