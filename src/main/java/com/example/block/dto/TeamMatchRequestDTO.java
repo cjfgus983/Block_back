@@ -13,6 +13,5 @@ public class TeamMatchRequestDTO {
         @NotNull
         ApplyPart applyPart;
         String content;
-//        MultipartFile profileImage;
     }
 }

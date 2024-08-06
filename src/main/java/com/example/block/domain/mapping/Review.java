@@ -12,6 +12,7 @@ import java.util.List;
 
 @Entity
 @Getter
+@Setter
 @Builder
 @NoArgsConstructor(access= AccessLevel.PROTECTED)
 @AllArgsConstructor
@@ -39,5 +40,8 @@ public class Review extends BaseEntity {
 
     @OneToMany(mappedBy = "review", cascade = CascadeType.ALL)
     private List<TransactionReview> transactionReviewList=new ArrayList<>();
+
+    @OneToMany(mappedBy = "review", cascade = CascadeType.ALL)
+    private List<ReviewAverageScore> reviewAverageScoresList=new ArrayList<>();
 
 }

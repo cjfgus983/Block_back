@@ -26,7 +26,6 @@ public class MyPageResponseDTO {
         String major;
         ApplyPart applyPart;
         String contestTitle;
-//        String profileImageUrl;
     }
 
     @Builder

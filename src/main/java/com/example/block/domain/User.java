@@ -4,7 +4,7 @@ import com.example.block.domain.common.BaseEntity;
 import com.example.block.domain.enums.ContestCategory;
 import com.example.block.domain.enums.LoginType;
 import com.example.block.domain.mapping.Likes;
-import com.example.block.domain.mapping.Review;
+import com.example.block.domain.mapping.ReviewAverageScore;
 import com.example.block.domain.mapping.TransactionReview;
 
 
@@ -80,7 +80,6 @@ public class User extends BaseEntity {
     @Column(name = "is_login", columnDefinition = "TINYINT(1)")
     private Boolean isLogin;
 
-
     @Column(name = "is_new_user")
     private Boolean isNewUser;
 
@@ -103,13 +102,17 @@ public class User extends BaseEntity {
     @Column
     private ContestCategory InterestCategory;
 
+    @Setter
+    private double score;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<TransactionReview> transactionReviewList=new ArrayList<>();
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private List<PointDetail> pointDetailList=new ArrayList<>();
+    private List<ReviewAverageScore> reviewAverageScoresList=new ArrayList<>();
 
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<PointDetail> pointDetailList=new ArrayList<>();
 
     public void setId(Integer id) {
         this.id = id;
@@ -121,7 +124,6 @@ public class User extends BaseEntity {
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<MyContest> myContestList = new ArrayList<>();
-
     @Builder
     public User(Long serialId) {
         this.serialId = serialId;
@@ -152,14 +154,11 @@ public class User extends BaseEntity {
                 .build();
     }
 
-
     @OneToMany(mappedBy = "userLiker", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Likes> likerList = new ArrayList<>();
 
     @OneToMany(mappedBy = "userLiked", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Likes> likedList = new ArrayList<>();
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private List<Review> reviewList = new ArrayList<>();
 
 }
