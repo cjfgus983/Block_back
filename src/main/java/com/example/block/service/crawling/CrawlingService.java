@@ -26,8 +26,8 @@ public class CrawlingService {
             "https://www.contestkorea.com/sub/list.php?displayrow=12&int_gbn=1&Txt_sGn=1&Txt_key=all&Txt_word=&Txt_bcode=030510001&Txt_code1=&Txt_aarea=&Txt_area=&Txt_sortkey=a.int_sort&Txt_sortword=desc&Txt_host=&Txt_award=&Txt_award2=&Txt_code3=&Txt_tipyn=&Txt_comment=&Txt_resultyn=&Txt_actcode=&page=5",
             "https://www.contestkorea.com/sub/list.php?displayrow=12&int_gbn=1&Txt_sGn=1&Txt_key=all&Txt_word=&Txt_bcode=030310001&Txt_code1=&Txt_aarea=&Txt_area=&Txt_sortkey=a.int_sort&Txt_sortword=desc&Txt_host=&Txt_award=&Txt_award2=&Txt_code3=&Txt_tipyn=&Txt_comment=&Txt_resultyn=&Txt_actcode=&page=5",
             "https://www.contestkorea.com/sub/list.php?displayrow=12&int_gbn=1&Txt_sGn=1&Txt_key=all&Txt_word=&Txt_bcode=031510001&Txt_code1=&Txt_aarea=&Txt_area=&Txt_sortkey=a.int_sort&Txt_sortword=desc&Txt_host=&Txt_award=&Txt_award2=&Txt_code3=&Txt_tipyn=&Txt_comment=&Txt_resultyn=&Txt_actcode=&page=5",
-            "https://www.contestkorea.com/sub/list.php?displayrow=12&int_gbn=1&Txt_sGn=1&Txt_key=all&Txt_word=&Txt_bcode=030810001&Txt_code1=&Txt_aarea=&Txt_area=&Txt_sortkey=a.int_sort&Txt_sortword=desc&Txt_host=&Txt_award=&Txt_award2=&Txt_code3=&Txt_tipyn=&Txt_comment=&Txt_resultyn=&Txt_actcode=&page=5",
-            "https://www.contestkorea.com/sub/list.php?displayrow=12&int_gbn=1&Txt_sGn=1&Txt_key=all&Txt_word=&Txt_bcode=030710001&Txt_code1=&Txt_aarea=&Txt_area=&Txt_sortkey=a.int_sort&Txt_sortword=desc&Txt_host=&Txt_award=&Txt_award2=&Txt_code3=&Txt_tipyn=&Txt_comment=&Txt_resultyn=&Txt_actcode=&page=5"
+            "https://www.contestkorea.com/sub/list.php?displayrow=12&int_gbn=1&Txt_sGn=1&Txt_key=all&Txt_word=&Txt_bcode=030810001&Txt_code1=&Txt_aarea=&Txt_area=&Txt_sortkey=a.int_sort&Txt_sortword=desc&Txt_host=&Txt_award=&Txt_award2=&Txt_code3=&Txt_tipyn=&Txt_comment=&Txt_resultyn=&Txt_actcode=&page=5"
+//            "https://www.contestkorea.com/sub/list.php?displayrow=12&int_gbn=1&Txt_sGn=1&Txt_key=all&Txt_word=&Txt_bcode=030710001&Txt_code1=&Txt_aarea=&Txt_area=&Txt_sortkey=a.int_sort&Txt_sortword=desc&Txt_host=&Txt_award=&Txt_award2=&Txt_code3=&Txt_tipyn=&Txt_comment=&Txt_resultyn=&Txt_actcode=&page=5"
     );
 
     public List<String> getContestPage(String url) throws IOException {
@@ -65,45 +65,45 @@ public class CrawlingService {
         return newContestURLs;
     }
 
-//    @PostConstruct
-//    public void saveContest() throws IOException {
-//        List<String> newContestURLs = getContestURL();
-//        for (String newContestURL : newContestURLs) {
-//            Document doc = Jsoup.connect(newContestURL).get();
-//            Elements contestTitle = doc.select("#wrap > div.container.list_wrap > div.left_cont > div.view_cont_area > div.view_top_area.clfx > h1");
-//            Elements startDate = doc.select("#wrap > div.container.list_wrap > div.left_cont > div.view_cont_area > div.view_top_area.clfx > div.clfx > div.txt_area > table > tbody > tr:nth-child(4) > td");
-//            Elements endDate = doc.select("#wrap > div.container.list_wrap > div.left_cont > div.view_cont_area > div.view_top_area.clfx > div.clfx > div.txt_area > table > tbody > tr:nth-child(4) > td");
-//            Elements applyUrl = doc.select("#wrap > div.container.list_wrap > div.left_cont > div.view_cont_area > div.view_top_area.clfx > div.clfx > div.txt_area > table > tbody > tr > td > a");
-//            Elements host = doc.select("#wrap > div.container.list_wrap > div.left_cont > div.view_cont_area > div.view_top_area.clfx > div.clfx > div.txt_area > table > tbody > tr:nth-child(1) > td");
-//            Elements image = doc.select("#wrap > div.container.list_wrap > div.left_cont > div.view_cont_area > div.view_top_area.clfx > div.clfx > div.img_area > div > img");
-//            Elements hashtag = doc.select("#wrap > div.container.list_wrap > div.left_cont > div.view_cont_area > div.view_top_area.clfx > div.clfx > div.txt_area > table > tbody > tr:nth-child(2) > td");
-//
-//
-//
-//
-//            String iHref = image.attr("src");
-//            String href = applyUrl.attr("href");
-//
-//            System.out.println(contestTitle.text());
-//            System.out.println(host.text());
-//            System.out.println(startDate.text().substring(0, 10));
-//            System.out.println(endDate.text().substring(13, 23));
-//            System.out.println(hashtag.text());
-//            System.out.println(href);
-//            System.out.println("------------------");
-//
-//            if (!contestRepository.existsByTitle(contestTitle.text())) {
-//                Contest contest = Contest.builder()
-//                        .startDate(startDate.text().substring(0, 10))
-//                        .endDate(endDate.text().substring(13, 23))
-//                        .applyUrl(href)
-//                        .title(contestTitle.text())
-//                        .host(host.text())
-//                        .hashTag(hashtag.text())
-//                        .imageUrl("https://www.contestkorea.com/" + iHref)
-//                        .build();
-//                contestRepository.save(contest);
-//            }
-//        }
-//    }
+//        @PostConstruct
+    public void saveContest() throws IOException {
+        List<String> newContestURLs = getContestURL();
+        for (String newContestURL : newContestURLs) {
+            Document doc = Jsoup.connect(newContestURL).get();
+            Elements contestTitle = doc.select("#wrap > div.container.list_wrap > div.left_cont > div.view_cont_area > div.view_top_area.clfx > h1");
+            Elements startDate = doc.select("#wrap > div.container.list_wrap > div.left_cont > div.view_cont_area > div.view_top_area.clfx > div.clfx > div.txt_area > table > tbody > tr:nth-child(4) > td");
+            Elements endDate = doc.select("#wrap > div.container.list_wrap > div.left_cont > div.view_cont_area > div.view_top_area.clfx > div.clfx > div.txt_area > table > tbody > tr:nth-child(4) > td");
+            Elements applyUrl = doc.select("#wrap > div.container.list_wrap > div.left_cont > div.view_cont_area > div.view_top_area.clfx > div.clfx > div.txt_area > table > tbody > tr > td > a");
+            Elements host = doc.select("#wrap > div.container.list_wrap > div.left_cont > div.view_cont_area > div.view_top_area.clfx > div.clfx > div.txt_area > table > tbody > tr:nth-child(1) > td");
+            Elements image = doc.select("#wrap > div.container.list_wrap > div.left_cont > div.view_cont_area > div.view_top_area.clfx > div.clfx > div.img_area > div > img");
+            Elements hashtag = doc.select("#wrap > div.container.list_wrap > div.left_cont > div.view_cont_area > div.view_top_area.clfx > div.clfx > div.txt_area > table > tbody > tr:nth-child(2) > td");
+
+
+
+
+            String iHref = image.attr("src");
+            String href = applyUrl.attr("href");
+
+            System.out.println(contestTitle.text());
+            System.out.println(host.text());
+            System.out.println(startDate.text().substring(0, 10));
+            System.out.println(endDate.text().substring(13, 23));
+            System.out.println(hashtag.text());
+            System.out.println(href);
+            System.out.println("------------------");
+
+            if (!contestRepository.existsByTitle(contestTitle.text())) {
+                Contest contest = Contest.builder()
+                        .startDate(startDate.text().substring(0, 10))
+                        .endDate(endDate.text().substring(13, 23))
+                        .applyUrl(href)
+                        .title(contestTitle.text())
+                        .host(host.text())
+                        .hashTag(hashtag.text())
+                        .imageUrl("https://www.contestkorea.com/" + iHref)
+                        .build();
+                contestRepository.save(contest);
+            }
+        }
+    }
 }
