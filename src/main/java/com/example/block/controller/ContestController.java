@@ -21,7 +21,7 @@ public class ContestController {
     @GetMapping("{contestId}")
     @Operation(summary = "공모전 상세 페이지")
     public ApiResponse<ContestResponseDTO.ContestInfoDTO> getContestInfo(@PathVariable Integer contestId) {
-        return ApiResponse.onSuccess(contestService.getContestInfo());
+        return ApiResponse.onSuccess(contestService.getContestInfo(contestId));
     }
 
 
