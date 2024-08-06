@@ -65,7 +65,7 @@ public class CrawlingService {
         return newContestURLs;
     }
 
-        @PostConstruct
+//        @PostConstruct
     public void saveContest() throws IOException {
         List<String> newContestURLs = getContestURL();
         for (String newContestURL : newContestURLs) {
