@@ -27,6 +27,7 @@ public enum ErrorStatus implements BaseErrorCode {
     _NEED_PAY(HttpStatus.BAD_REQUEST,"PAY400","결제가 필요합니다."),
     //리뷰 관련
     _REVIEW_NOT_FOUND(HttpStatus.NOT_FOUND,"REVIEW404","리뷰가 존재하지 않습니다."),
+    _REVIEW_ALREADY_EXIST(HttpStatus.NOT_FOUND,"REVIEW404","리뷰가 이미 존재합니다."),
     //유저 관련
     _USER_NOT_FOUND(HttpStatus.NOT_FOUND,"USER404","유저가 존재하지 않습니다."),
     EXIST_EMAIL( HttpStatus.CONFLICT, "EMAIL405", "이미 존재하는 이메일입니다."),
@@ -46,6 +47,12 @@ public enum ErrorStatus implements BaseErrorCode {
     TOKEN_GENERATION_ERROR( HttpStatus.UNAUTHORIZED,"40106", "토큰 생성에 실패하였습니다."),
     TOKEN_UNKNOWN_ERROR( HttpStatus.UNAUTHORIZED,"40107", "알 수 없는 토큰입니다."),
     TOKEN_NULL_ERROR( HttpStatus.UNAUTHORIZED,"40108", "토큰이 존재하지 않습니다."),
+
+    //매칭 관련
+    CHALLENGER_NOT_MATCHED(HttpStatus.BAD_REQUEST, "MATCH400", "매칭된 상대가 아닙니다."),
+
+    //rating 관련
+    RATING_ALREADY_COMPLETED(HttpStatus.BAD_REQUEST, "RATE400", "이미 별점을 준 상대입니다."),
 
     CHALLENGER_ALREADY_EXISTS(HttpStatus.BAD_REQUEST, "APPLY400", "이미 지원한 공모전입니다."),
 

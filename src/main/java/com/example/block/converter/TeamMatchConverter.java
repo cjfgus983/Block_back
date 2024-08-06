@@ -17,10 +17,11 @@ public class TeamMatchConverter {
                         .name(applicant.getUser().getName())
                         .university(applicant.getUser().getUniversity())
                         .applyPart(applicant.getApplyPart())
+                        .profileImageUrl(applicant.getUser().getImageUrl())
                         .build()).collect(Collectors.toList());
     }
 
-    public static TeamMatchResponseDTO.ChallengerResultDTO toChallengerResultDTO(Applicant challenger, Boolean hasUserLiked){
+    public static TeamMatchResponseDTO.ChallengerResultDTO toChallengerResultDTO(Applicant challenger, Boolean hasUserLiked, double score){
 
         return TeamMatchResponseDTO.ChallengerResultDTO.builder()
                 .name(challenger.getUser().getName())
@@ -28,8 +29,10 @@ public class TeamMatchConverter {
                 .major(challenger.getUser().getUnivMajor())
                 .portfolio(challenger.getUser().getPortfolio())
                 .applyPart(challenger.getApplyPart())
+                .score(score)
                 .content(challenger.getContent())
                 .liked(hasUserLiked)
+                .profileImageUrl(challenger.getUser().getImageUrl())
                 .build();
     }
 
