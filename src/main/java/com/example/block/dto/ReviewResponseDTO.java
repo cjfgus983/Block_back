@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 public class ReviewResponseDTO {
     @Builder
@@ -22,5 +23,32 @@ public class ReviewResponseDTO {
         Float score;
         @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Seoul")
         LocalDateTime createdAt;
+    }
+    @Builder
+    @Getter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class ReviewResultDTO{
+        Integer reviewId;
+        String message;
+    }
+
+    @Builder
+    @Getter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class ViewReviewResultDTO{
+        Integer reviewId;
+        String userName;
+        String prize;
+        Double score;
+    }
+    @Builder
+    @Getter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class ViewReviewResultListDTO{
+        List<ViewReviewResultDTO> reviewList;
+        String message;
     }
 }

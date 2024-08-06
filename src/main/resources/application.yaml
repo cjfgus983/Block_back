@@ -1,14 +1,16 @@
 spring:
+  config:
+    import:
+      - classpath:application-secret.yml
+      - classpath:application-API-KEY.properties
   application:
     name: demo
 
   datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/block
     username: root
-    password: #MySQL password
-
-
+    password: Mchwoo9209@
+    driver-class-name: com.mysql.cj.jdbc.Driver
   sql:
     init:
       mode: never
@@ -21,9 +23,9 @@ spring:
         use_sql_comments: true
         hbm2ddl:
           auto: update
+        default_batch_fetch_size: 1000
 
-  profiles:
-    include: API-KEY, secret
+    include: API-KEY,secret
 
   servlet:
     multipart:
