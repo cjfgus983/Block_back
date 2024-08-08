@@ -22,6 +22,7 @@ public class MyPageService {
     private final ApplicantRepository applicantRepository;
     private final UserRepository userRepository;
     private final MyContestRepository mycontestRepository;
+    private final AuthService authService;
 
     public Applicant getChallenger(Integer contestId, Integer userId){
         return applicantRepository.findByContestIdAndUserId(contestId, userId).get();
@@ -46,14 +47,14 @@ public class MyPageService {
     }
 
     // 마이페이지를 띄워줄 유저 정보
-    public MyPageResponseDTO.myPageDTO getMyPageUser(Integer userId){
-        Optional<User> user = userRepository.findById(userId);
+    public MyPageResponseDTO.myPageDTO getMyPageUser(){
+        Optional<User> user = userRepository.findById(authService.getUserIdFromSecurity());
         return MyPageConverter.toMyPageDTO(user.orElse(null));
     }
 
-    // 마이페이지를 띄워줄 유저 정보 수정
-    public MyPageResponseDTO.myPageEditDataDTO updateUser(Integer userId, MyPageResponseDTO.myPageEditDataDTO updatedUser) {
-        Optional<User> user = userRepository.findById(userId);
+    // 유저 정보 수정
+    public MyPageResponseDTO.myPageEditDataDTO updateUser(MyPageResponseDTO.myPageEditDataDTO updatedUser) {
+        Optional<User> user = userRepository.findById(authService.getUserIdFromSecurity());
         user.get().setUserId(updatedUser.getUserId());
         user.get().setPassWord(updatedUser.getPassWord());
         user.get().setBirthDay(updatedUser.getBirthDay());
@@ -68,8 +69,8 @@ public class MyPageService {
     }
 
     // 저장한 공모전을 모두 조회
-    public List<MyPageResponseDTO.contestDTO> getMyContestList(Integer userId){
-        List<MyContest> myContestList = mycontestRepository.findByUserId(userId);
+    public List<MyPageResponseDTO.contestDTO> getMyContestList(){
+        List<MyContest> myContestList = mycontestRepository.findByUserId(authService.getUserIdFromSecurity());
         return myContestList.stream()
                 .map(contest -> MyPageConverter.toMyContestDTO(contest.getContest()))
                 .collect(Collectors.toList());
