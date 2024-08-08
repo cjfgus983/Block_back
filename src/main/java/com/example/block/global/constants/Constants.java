@@ -28,7 +28,7 @@ public class Constants {
             "/api/v1/auth/login",
             "/api/v1/auth/sign-up",
             "/api/v1/auth/sign-in",
-            "/api/v1/auth//oauth2/kakao",
+            "/api/v1/auth/oauth2/kakao",
             "/oauth2/**",
             "/login/oauth2/**",
             "/favicon.ico"
