@@ -97,7 +97,7 @@ public class MyPageController {
     @Operation(summary = "마이 페이지 메인 화면")
     public ApiResponse<MyPageResponseDTO.myPageDTO> getMyPageMain(@RequestParam(name = "userId") Integer userId) {
         // 마이 페이지 메인 화면 데이터 조회
-        MyPageResponseDTO.myPageDTO user = myPageService.getMyPageUser(userId);
+        MyPageResponseDTO.myPageDTO user = myPageService.getMyPageUser();
 
         return ApiResponse.onSuccess(user);
     }
@@ -108,7 +108,7 @@ public class MyPageController {
     public ApiResponse<MyPageResponseDTO.myPageDTO> editMyPage(@RequestParam(name = "userId") Integer userId) {
         // 마이 페이지 내 정보 수정
         // 기본 정보는 메인 화면과 똑같이 보여주면서 수정 가능한 리스트의 뷰를 보여주므로 같은 메소드 사용
-        MyPageResponseDTO.myPageDTO user = myPageService.getMyPageUser(userId);
+        MyPageResponseDTO.myPageDTO user = myPageService.getMyPageUser();
         return ApiResponse.onSuccess(user);
     }
 
@@ -119,7 +119,7 @@ public class MyPageController {
     public void editMyPageComplete(@RequestParam(name = "userId") Integer userId,
                                                 @RequestBody MyPageResponseDTO.myPageEditDataDTO updatedUser) {
         // 수정된 정보를 저장하고
-        myPageService.updateUser(userId, updatedUser);
+        myPageService.updateUser(updatedUser);
     }
 
     // 마이페이지 옵션 내 저장한 공모전, 후기 조회
@@ -127,7 +127,7 @@ public class MyPageController {
     @Operation(summary = "마이페이지 옵션 내 저장한 공모전, 후기 조회")
     public ApiResponse<MyPageResponseDTO.myPageDTO> getMyContest(@RequestParam(name = "userId") Integer userId) {
         // 해당 버튼을 가지고 있는 뷰를 보여주면서 메인페이지도 보여줘야하기 때문에 같은 메소드 사용
-        MyPageResponseDTO.myPageDTO user = myPageService.getMyPageUser(userId);
+        MyPageResponseDTO.myPageDTO user = myPageService.getMyPageUser();
         return ApiResponse.onSuccess(user);
     }
 
@@ -136,7 +136,7 @@ public class MyPageController {
     @Operation(summary = "마이페이지 옵션 내 저장한 공모전 조회")
     public ApiResponse<List<MyPageResponseDTO.contestDTO>> getMyContests(@RequestParam(name = "userId") Integer userId) {
         // 내가 저장한 공모전 목록 조회
-        return ApiResponse.onSuccess(myPageService.getMyContestList(userId));
+        return ApiResponse.onSuccess(myPageService.getMyContestList());
     }
 
 }

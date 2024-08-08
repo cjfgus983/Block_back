@@ -28,8 +28,8 @@ public class ContestController {
     // 공모전 저장
     @PostMapping("{contestId}/save")
     @Operation(summary = "공모전 저장")
-    public ApiResponse<String> saveContest(@PathVariable Integer contestId, @RequestParam Integer userId) {
-        contestService.saveMyContest(contestId, userId);
+    public ApiResponse<String> saveContest(@PathVariable Integer contestId) {
+        contestService.saveMyContest(contestId);
 
         return ApiResponse.onSuccess("공모전이 저장되었습니다.");
     }
