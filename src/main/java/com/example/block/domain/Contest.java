@@ -53,6 +53,7 @@ public class Contest extends BaseEntity {
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = true)
+    @Setter
     private ContestType contestCategory;
 
     @Column(nullable = false)
