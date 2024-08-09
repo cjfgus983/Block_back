@@ -1,4 +1,8 @@
 spring:
+  config:
+    import:
+      - classpath:application-secret.yml
+      - classpath:application-API-KEY.properties
   application:
     name: demo
 
@@ -6,7 +10,7 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/block
     username: root
-    password: #mysql 비밀 번호
+    password: Mchwoo9209@
 
   sql:
     init:
@@ -14,9 +18,18 @@ spring:
   jpa:
     properties:
       hibernate:
-        dialect: org.hibernate.dialect.MySQL8Dialect
+#        dialect: org.hibernate.dialect.MySQL8Dialect
         show_sql: true
         format_sql: true
         use_sql_comments: true
         hbm2ddl:
           auto: update
+        default_batch_fetch_size: 1000
+
+  profiles:
+    include: API-KEY, secret
+
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB

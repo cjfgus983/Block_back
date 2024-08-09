@@ -1,17 +1,28 @@
 package com.example.block.domain;
 
 import com.example.block.domain.common.BaseEntity;
+import com.example.block.domain.enums.ContestCategory;
 import com.example.block.domain.enums.LoginType;
+import com.example.block.domain.mapping.Likes;
+import com.example.block.domain.mapping.ReviewAverageScore;
+import com.example.block.domain.mapping.TransactionReview;
+
+
+import com.example.block.dto.SignUpRequest;
+import com.example.block.global.constants.Constants;
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.annotations.DynamicInsert;
-import org.hibernate.annotations.DynamicUpdate;
-import org.springframework.data.annotation.Id;
+
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
+
 
 @Entity(name = "User")
 @Getter
+@Setter
 @Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
@@ -19,33 +30,42 @@ public class User extends BaseEntity {
 
     @jakarta.persistence.Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
+
+    @Column(name = "serial_id", nullable = false, unique = true)
+    private Long serialId;
 
     @Column(nullable = true, length = 50)
     private String userId;
 
-    @Column(nullable = true,length = 50)
+    @Column(name = "platform")
+    private String platform;
+
+    @Column(name = "password", length = 256)
     private String passWord;
 
-    @Column(nullable = true, length = 50)
+    @Column(name = "nickname")
+    private String nickname;
+
+    @Column(name = "email",unique = true, length = 50)
     private String email;
 
     @Column(nullable = true, length = 1023)
-    private String portPolio;
+    private String portfolio;
 
     @Column(nullable = true, length = 1023)
     private String imageUrl;
 
-    @Column(nullable = false, length = 8)
+    @Column(nullable = true, length = 25)
     private String birthDay;
 
-    @Column(nullable = false, length = 10)
+    @Column(nullable = true, length = 10)
     private String name;
 
-    @Column(nullable = false, length = 30)
+    @Column(nullable = true, length = 30)
     private String address;
 
-    @Column(nullable = false, length = 11)
+    @Column(nullable = true, length = 25)
     private String phoneNumber;
 
     @Column(nullable = true, length = 25)
@@ -54,8 +74,18 @@ public class User extends BaseEntity {
     @Column(nullable = true, length = 25)
     private String univMajor;
 
+    @Column(name = "refresh_token")
+    private String refreshToken;
+
+    @Column(name = "is_login", columnDefinition = "TINYINT(1)")
+    private Boolean isLogin;
+
+    @Column(name = "is_new_user")
+    private Boolean isNewUser;
+
+
     @Enumerated(EnumType.STRING)
-    @Column(columnDefinition = "VARCHAR(10)")
+    @Column(columnDefinition = "VARCHAR(10) DEFAULT 'kakao'")
     private LoginType loginType;
 
     //    0 = FALSE, 1 = TRUE
@@ -68,12 +98,67 @@ public class User extends BaseEntity {
     @Column(columnDefinition = "BIGINT DEFAULT 0")
     private Long point;
 
-    public void setId(Long id) {
+    @Enumerated(EnumType.STRING)
+    @Column
+    private ContestCategory InterestCategory;
+
+    @Setter
+    private double score;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<TransactionReview> transactionReviewList=new ArrayList<>();
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<ReviewAverageScore> reviewAverageScoresList=new ArrayList<>();
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<PointDetail> pointDetailList=new ArrayList<>();
+
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<MyContest> myContestList = new ArrayList<>();
+    @Builder
+    public User(Long serialId) {
+        this.serialId = serialId;
+        this.isLogin = true;
+        this.isNewUser = true;
+        this.nickname = Constants.USER_NICKNAME_PREFIX + serialId;
+    }
+
+    public static User signUp(Long serialId){
+        return User.builder()
+                .serialId(serialId)
+                .build();
+    }
+
+    public static User signUpByRequest(SignUpRequest request) {
+        return User.builder()
+                .serialId(request.getProviderId())
+                .email(request.getEmail())
+                .passWord(request.getPassword())
+                .name(request.getName())
+                .phoneNumber(request.getPhoneNumber())
+                .university(request.getUniversity())
+                .birthDay(request.getBirthDay())
+                .univMajor(request.getUnivMajor())
+                .portfolio(request.getPortfolio())
+                .point(0L)
+                .isLogin(true)
+                .build();
+    }
+
+    @OneToMany(mappedBy = "userLiker", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Likes> likerList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "userLiked", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Likes> likedList = new ArrayList<>();
+
 
 }
