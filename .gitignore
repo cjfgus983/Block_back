@@ -9,6 +9,7 @@ application.yml
 ### API key ###
 src/main/resources/application-API-KEY.properties
 src/main/resources/application-secret.yml
+src/main/resources/application.yaml
 
 ### STS ###
 .apt_generated
