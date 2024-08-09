@@ -79,9 +79,6 @@ public class CrawlingService {
             Elements image = doc.select("#wrap > div.container.list_wrap > div.left_cont > div.view_cont_area > div.view_top_area.clfx > div.clfx > div.img_area > div > img");
             Elements hashtag = doc.select("#wrap > div.container.list_wrap > div.left_cont > div.view_cont_area > div.view_top_area.clfx > div.clfx > div.txt_area > table > tbody > tr:nth-child(2) > td");
 
-
-
-
             String iHref = image.attr("src");
             String href = applyUrl.attr("href");
 
@@ -103,6 +100,10 @@ public class CrawlingService {
                         .hashTag(hashtag.text())
                         .imageUrl("https://www.contestkorea.com/" + iHref)
                         .build();
+//                if(hashtag.text() == ){
+//                }
+//                contest.setContestCategory();
+
                 contestRepository.save(contest);
             }
         }
