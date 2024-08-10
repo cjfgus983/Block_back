@@ -10,7 +10,7 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/block
     username: root
-    password: kjm950730@
+    password: Mchwoo9209@
 
   sql:
     init:
@@ -23,7 +23,7 @@ spring:
         format_sql: true
         use_sql_comments: true
         hbm2ddl:
-          auto: update
+          auto: create
         default_batch_fetch_size: 1000
 
   profiles:

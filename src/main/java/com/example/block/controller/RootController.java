@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class RootController {
 
     @GetMapping("/health")
-    public ApiResponse<String> healthCheck(){
-        return ApiResponse.onSuccess("hi!");
+    public String healthCheck(){
+        return "hi";
     }
 }
