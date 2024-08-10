@@ -31,6 +31,7 @@ public class Constants {
             "/api/v1/auth/oauth2/kakao",
             "/oauth2/**",
             "/login/oauth2/**",
-            "/favicon.ico"
+            "/favicon.ico",
+            "health"
     );
 }
