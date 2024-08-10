@@ -32,6 +32,6 @@ public class Constants {
             "/oauth2/**",
             "/login/oauth2/**",
             "/favicon.ico",
-            "health"
+            "/health"
     );
 }
