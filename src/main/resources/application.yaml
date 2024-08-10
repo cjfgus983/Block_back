@@ -8,9 +8,10 @@ spring:
 
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://block-db-public.ciz45lm9ifs2.ap-northeast-2.rds.amazonaws.com:3306/block
-    username: root
-    password: Mchwoo9209
+    url: ${secrets.DB_NAME}
+    username: ${secrets.DB_USERNAME}
+    password: ${secrets.DB_PASSWORD}
+
 
 
   sql:
