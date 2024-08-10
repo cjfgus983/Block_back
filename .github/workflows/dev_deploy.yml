@@ -20,6 +20,18 @@ jobs:
           java-version: 17
           distribution: 'adopt'
 
+      - run: touch ./src/main/resources/application.yaml
+      - run: echo "${{ secrets.APPLICATION }}" > ./src/main/resources/application.yaml
+      - run: cat ./src/main/resources/application.yaml
+
+      - run: touch ./src/main/resources/application-API-KEY.properties
+      - run: echo "${{ secrets.APPLICATION_API_KEY }}" > ./src/main/resources/application-API-KEY.properties
+      - run: cat ./src/main/resources/application-API-KEY.properties
+
+      - run: touch ./src/main/resources/application-secret.yml
+      - run: echo "${{ secrets.APPLICATION_SECRET }}" > ./src/main/resources/application-secret.yml
+      - run: cat ./src/main/resources/application-secret.yml
+
       - name: Grant execute permission for gradlew
         run: chmod +x ./gradlew
         shell: bash
