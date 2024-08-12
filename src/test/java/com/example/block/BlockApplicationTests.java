@@ -9,5 +9,4 @@ class BlockApplicationTests {
 	@Test
 	void contextLoads() {
 	}
-
 }

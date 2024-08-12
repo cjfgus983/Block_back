@@ -44,9 +44,10 @@ public class AuthController {
     )
     @PostMapping("/sign-up")
     public ApiResponse<?> signUp(@RequestBody SignUpRequest request) {
-
-        return ApiResponse.onSuccess(authService.signUp(request));
-
+        log.info("Received SignUpRequest: {}", request);
+        ApiResponse<?> response = ApiResponse.onSuccess(authService.signUp(request));
+        log.info("SignUpResponse: {}", response);
+        return response;
     }
 
     @Operation(

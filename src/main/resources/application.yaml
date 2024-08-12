@@ -8,11 +8,9 @@ spring:
 
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: ${DB_NAME}
-    username: ${DB_USERNAME}
-    password: ${DB_PASSWORD}
-
-
+    url: jdbc:mysql://localhost:3306/test
+    username: kch # 여기에는 실제 MySQL 사용자 이름을 적습니다
+    password: 8690 # 여기에는 실제 MySQL 사용자의 비밀번호를 적습니다
 
   sql:
     init:
@@ -20,7 +18,7 @@ spring:
   jpa:
     properties:
       hibernate:
-#        dialect: org.hibernate.dialect.MySQL8Dialect
+        dialect: org.hibernate.dialect.MySQLDialect # 주석 처리된 부분을 활성화하여 사용
         show_sql: true
         format_sql: true
         use_sql_comments: true
